@@ -1,236 +1,590 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
-    <link rel="stylesheet" href="./zhengxin/jemdoc.css" type="text/css" />
-    <title>Zhengxin Zhang's Home Page</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zhengxin Zhang | Cornell CS PhD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #fafaf9;
+            --bg-card: #ffffff;
+            --text: #1c1917;
+            --text-secondary: #57534e;
+            --accent: #b91c1c;
+            --accent-light: #fef2f2;
+            --border: #e7e5e4;
+            --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(250, 250, 249, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 0 2rem;
+        }
+        nav .nav-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
+        }
+        nav .nav-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text);
+            text-decoration: none;
+        }
+        nav .nav-links { display: flex; gap: 1.75rem; }
+        nav .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        nav .nav-links a:hover { color: var(--accent); }
+
+        /* --- Hero / Profile --- */
+        .hero {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 7rem 2rem 3rem;
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+        .hero-photo {
+            flex-shrink: 0;
+        }
+        .hero-photo img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--bg-card);
+            box-shadow: var(--shadow-md);
+        }
+        .hero-text h1 {
+            font-family: 'Crimson Pro', Georgia, serif;
+            font-size: 2.4rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+        }
+        .hero-text .subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        .hero-text .subtitle a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .hero-text .subtitle a:hover { text-decoration: underline; }
+        .hero-text .bio {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.8;
+        }
+        .hero-text .bio a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .hero-text .bio a:hover { text-decoration: underline; }
+        .hero-meta {
+            display: flex;
+            gap: 1.25rem;
+            margin-top: 1.25rem;
+            flex-wrap: wrap;
+        }
+        .hero-meta a, .hero-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.35rem 0.85rem;
+            border-radius: 999px;
+            transition: all 0.2s;
+        }
+        .hero-meta a:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-light);
+        }
+        .hero-meta svg { width: 14px; height: 14px; }
+
+        /* --- Main content --- */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        /* --- Section --- */
+        section {
+            margin-bottom: 3rem;
+        }
+        section h2 {
+            font-family: 'Crimson Pro', Georgia, serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            letter-spacing: -0.01em;
+        }
+        section h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        section h3:first-of-type { margin-top: 0; }
+
+        /* --- News card --- */
+        .news-item {
+            background: var(--accent-light);
+            border-left: 3px solid var(--accent);
+            padding: 1rem 1.25rem;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            margin-bottom: 0.75rem;
+            font-size: 0.92rem;
+        }
+        .news-item .news-date {
+            font-weight: 600;
+            color: var(--accent);
+            margin-right: 0.5rem;
+        }
+        .news-item a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .news-item a:hover { text-decoration: underline; }
+
+        /* --- Publication card --- */
+        .pub {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.15rem 1.35rem;
+            margin-bottom: 0.75rem;
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+        .pub:hover {
+            box-shadow: var(--shadow-md);
+            border-color: #d6d3d1;
+        }
+        .pub .pub-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+        .pub .pub-authors {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.35rem;
+        }
+        .pub .pub-venue {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+        .pub .pub-venue b { color: var(--text); }
+        .pub .award-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 0.15rem 0.55rem;
+            border-radius: 999px;
+            margin-left: 0.4rem;
+            vertical-align: middle;
+        }
+
+        /* --- Timeline (Education / Internships) --- */
+        .timeline { position: relative; padding-left: 1.5rem; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            bottom: 0.5rem;
+            width: 2px;
+            background: var(--border);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.5rem;
+            top: 0.55rem;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid var(--bg);
+        }
+        .timeline-item .tl-period {
+            font-size: 0.78rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .timeline-item .tl-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .timeline-item .tl-detail {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* --- Awards list --- */
+        .award-list { list-style: none; }
+        .award-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+        .award-list li:last-child { border-bottom: none; }
+        .award-list .award-dot {
+            flex-shrink: 0;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-top: 0.5rem;
+        }
+
+        /* --- Service / Talks pills --- */
+        .pill-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .pill {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.78rem;
+            color: #a8a29e;
+            border-top: 1px solid var(--border);
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 700px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 5rem;
+                gap: 1.5rem;
+            }
+            .hero-meta { justify-content: center; }
+            nav .nav-links { gap: 1rem; }
+            nav .nav-links a { font-size: 0.78rem; }
+            .hero-text h1 { font-size: 1.8rem; }
+        }
+    </style>
 </head>
-<body data-new-gr-c-s-check-loaded="14.1062.0" data-gr-ext-installed="">
-    <div id="layout-content">
-        <table class="imgtable">
-            <tbody>
-                <tr>
-                    <td>
-                        <img src="./zhengxin/zhengxin_pr.jpg" width="150px" height="200px">&nbsp;
-                    </td>
-                    <td align="left">
-                        <p>
-                            <br />
-                            <b>Zhengxin Zhang</b>
-                            <br />
-                            <br />
-                            PhD Student
-                            <br />
-                            <br />
-                            <a href="https://cis.cornell.edu/" target="_blank">Computer Science</a ><br />
-                            <a href="https://www.cornell.edu/" target="_blank">Cornell University</a > <br />
-                            Bill and Melinda Gates Hall, G23
-                            <br />
-                            Campus Rd, Ithaca, NY 14853
-                            <br />
-                            <br />
-                            Email: zz865@cornell.edu
-                        </p >
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <p><br/></p >
-        <p>
-            I am currently a second-year CS PhD student at <a href="https://cis.cornell.edu/">Cornell University</a > advised by <a href="https://www.cs.cornell.edu/home/cardie/">Prof. Claire Cardie</a >. Previously, I was a research assistant at Carnegie Mellon University supervised by  <a href="https://www.cs.cmu.edu/~zhihaoj2/">Prof. Zhihao Jia</a >. I obtained MS at Tsinghua University supervised by <a href="https://www.sigs.tsinghua.edu.cn/jy/main.htm">Prof. Yong Jiang</a >. My research interests include data stream structure and algorithms design, programmable switches, machine learning, and large language models. I received my BS at the <a href="https://jsjxy.xust.edu.cn/">CS</a > department of <a href="https://www.xidian.edu.cn/">Xidian University</a >, where I was supervised by  <a href="https://faculty.xidian.edu.cn/XYS1/zh_CN/index/389193/list/index.htm">Prof. Yuesheng Xu</a >.     
-        <br>
-<h2>News</h2>
-<ul>
-    <li><b>[Nov. 2025]</b> We released our work <em>Better LLM Reasoning via Dual-play</em>, a novel framework that trains two nearly identical models adversarially, enabling them to co-evolve through iterative competition without any external supervision. Check <a href="https://glossy-kettledrum-44a.notion.site/Enhancing-LLM-Reasoning-via-GAN-Style-Training-Without-Supervision-2ae0a05c3a9480219332e019f21979c9">our paper blog</a > for details!</li>
-</ul>
-<h2>Preprints</h2>
-<ul>
-  <li>
-    <p>Better LLM Reasoning via Dual-play.<br>
-    <b>Zhengxin Zhang</b>*, Chengyu Huang*, Aochong Oliver Li, Claire Cardie.</p>
-  </li>
-  <li>
-    <p>GSM-Noise: Exploring and Enhancing Large Language Models' Reasoning under Noisy Inputs.<br>
-    <b>Zhengxin Zhang</b>*, Chengyu Huang*, Xufu Liu, Dan Zhao, Jinyan Su, Claire Cardie.</p>
-  </li>
-  <li>
-    <p>Towards More Robust Retrieval-Augmented Generation: Evaluating RAG Under Adversarial Poisoning Attacks.<br>
-    Jinyan Su, Jin Peng Zhou, <b>Zhengxin Zhang</b>, Preslav Nakov, Claire Cardie.</p>
-  </li>
-  <li>
-    <p>Graph-based Multi-Task Learning Framework for Model Generalization across Network Topologies.<br>
-    Jingyu Xiao, Qing Li, <b>Zhengxin Zhang</b>, Dan Zhao, and Yong Jiang.</p>
-  </li>
-</ul>
+<body>
 
-<h2>Publications</h2>
-
-<h3>2026</h3>
-<ul>
-  <li>
-    <p>HumanGuideNet: Adapter-Based Alignment of Deep Neural Networks with Human Similarity Judgments.<br>
-    Xufu Liu, Yifan Yang, <b>Zhengxin Zhang</b>. The IEEE/CVF Winter Conference on Applications of Computer Vision (<b>WACV</b>), Mar 2026.</p>
-  </li>
-  <li>
-    <p>HAPO: Training Language Models to Reason Concisely via History-Aware Policy Optimization.<br>
-    Chengyu Huang*, <b>Zhengxin Zhang</b>*, Claire Cardie. The 40th Annual AAAI Conference on Artificial Intelligence (<b>AAAI</b>), Jan 2026.</p>
-  </li>
-</ul>
-
-<h3>2025</h3>
-<ul>
-  <li>
-    <p>Learning-Enhanced High-Throughput Pattern Matching Based on Programmable Data Plane.<br>
-    Guanglin Duan*, Yucheng Huang*, <b>Zhengxin Zhang</b>*, Qing Li, Dan Zhao, and Yong Jiang. The 2025 USENIX Annual Technical Conference (<b>ATC</b>), July 2025.</p>
-  </li>
-</ul>
-
-<h3>2024</h3>
-<ul>
-  <li>
-    <p>Quantized Side Tuning: Fast and Efficient Tuning of Quantized Large Language Models.<br>
-    <b>Zhengxin Zhang</b>, Dan Zhao, Xupeng Miao, Gabriele Oliaro, Qing Li, Yong Jiang, and Zhihao Jia. The 62nd Annual Meeting of the Association for Computational Linguistics (<b>ACL</b>), August 2024. <b>Oral presentation</b>. <b><span style="color: red;">Outstanding Paper Award.</span></b></p>
-  </li>
-  <li>
-    <p>Specinfer: Accelerating large language model serving with tree-based speculative inference and verification.<br>
-    Xupeng Miao, Gabriele Oliaro, Zhihao Zhang, Xinhao Cheng, Zeyu Wang, <b>Zhengxin Zhang</b>, Rae Ying Yee Wong, Alan Zhu, Lijie Yang, Xiaoxiang Shi, Chunan Shi, Zhuoming Chen, Daiyaan Arfeen, Reyna Abhyankar, Zhihao Jia. Proceedings of the 29th ACM International Conference on Architectural Support for Programming Languages and Operating Systems (<b>ASPLOS</b>), July 2024.</p>
-  </li>
-  <li>
-    <p>DNSGuard: In-network Defense against DNS Attacks.<br>
-    Guanglin Duan, Qing Li, <b>Zhengxin Zhang</b>, Dan Zhao, Guorui Xie, and Yong Jiang. IEEE Transactions on Dependable and Secure Computing (<b>TDSC</b>), July 2024.</p>
-  </li>
-  <li>
-    <p>SeIoT: Smart Home Network Anomaly Detection via Knowledge Graph.<br>
-    Qing Li, Ruoyu Li, Yucheng Huang, Qingsong Zou, Dan Zhao, <b>Zhengxin Zhang</b>, and Yong Jiang. IEEE Transactions on Information Forensics and Security (<b>TIFS</b>), July 2024.</p>
-  </li>
-</ul>
-
-<h3>2023</h3>
-<ul>
-  <li>
-    <p>Metis: Understanding and Enhancing Regular Expressions in Network.<br>
-    <b>Zhengxin Zhang</b>*, Yucheng Huang*, Guanglin Duan*, Qing Li, Dan Zhao, Yong Jiang, Lianbo Ma, Xiao Xi, and Hengyang Xu. Neural Information Processing Systems (<b>NeurIPS</b>), December 2023.</p>
-  </li>
-  <li>
-    <p>Pontus: Finding Waves in Data Streams.<br>
-    <b>Zhengxin Zhang</b>, Qing Li, Guanglin Duan, Dan Zhao, Jingyu Xiao, Guorui Xie, and Yong Jiang. ACM SIGMOD International Conference on Management of Data (<b>SIGMOD</b>), June 2023.</p>
-  </li>
-</ul>
-
-<p>* denotes equal contribution</p>
-
-        <h2>Education</h2>
-        <table class="mytable">
-            <tr>
-                <td>2024-now</td>
-                <td>Ph.D. in Computer Science, Cornell University</td>
-            </tr>
-            <tr>
-                <td>2021-2024</td>
-                <td>M.S. in Computer Science and Engineering, Tsinghua University</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>GPA 3.88/4</td>
-            </tr>
-            <tr>
-                <td>2017-2021</td>
-                <td>B.S. in Software Engineering, Xidian University</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>GPA 3.86/4, Rank 2/110</td>
-            </tr>
-            <tr>
-                <td>2023-2024</td>
-                <td>Visiting scholar in Computer Science, Carnegie Mellon University</td>
-            </tr>
-        </table>
-
-        <h2>Awards</h2>
-        <ul>
-            <li>
-                <p>ACL Outstanding Paper Award 2024</p >
-            </li>
-            <li>
-                <p>Outstanding Master Dissertation Award 2024, Tsinghua University</p >
-            </li>
-            <li>
-                <p>First Prize Scholarship 2022, 2023, Tsinghua University</p >
-            </li>
-            <li>
-                <p>Second Place, Intel® 2022 P4 China Hackathon</p >
-            </li>
-            <li>
-                <p>Outstanding Graduates, Ministry of Education of Shaanxi Province</p >
-            </li>
-            <li>
-                <p>Outstanding Student 2018, 2019, 2020, Xidian University</p >
-            </li>
-            <li>
-                <p>National Scholarship 2020, Ministry of Education of the People’s Republic of China</p >
-            </li>
-            <li>
-                <p>First Prize Scholarship 2018, 2019, Xidian University</p >
-            </li>
-            <li>
-                <p>First Prize (selected for excellent papers, winning rate 0.036‰) 2019, China Undergraduate Mathematical Contest in Modeling</p >
-            </li>
-            <li>
-                <p>First Prize 2019, Xidian University Mathematical Modeling Contest</p >
-            </li>
-            <li>
-                <p>Meritorious Winner 2018, International Mathematical Contest in Modeling</p >
-            </li>
-        </ul>
-    
-        <h2>Internships</h2>
-        <table class="mytable">
-            <tr>
-                <td>Jun 2023 to Aug 2024</td>
-                <td>Research assistant at Carnegie Mellon University supervised by <a href="https://www.cs.cmu.edu/~zhihaoj2/">Prof. Zhihao Jia</a ></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Topic: Machine learning and large language models <br /></td>
-            </tr>
-            <tr>
-                <td>Sep 2022 to Aug 2023</td>
-                <td>Internship at Tencent, Shenzhen, China<br /></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Topic: XDP and eBPF algorithm design <br /></td>
-            </tr>
-        </table>
-
-        <h2>Talks</h2>
-        <ul>
-            <li>
-                <p>Cornell NLP Seminar: Quantized Side Tuning: Fast and Efficient Tuning of Quantized Large Language Models. Sep 2024.</p >
-            </li>
-            <li>
-                <p>Tencent: Regular Expressions in the Data Plane. Dec 2023.</p >
-            </li>
-        </ul>
-
-        <h2>Services</h2>
-        <ul>
-            <li>
-                <p>ICLR Reviewer 2025.</p >
-            </li>
-            <li>
-                <p>AAAI Programme Committee 2025.</p >
-            </li>
-            <li>
-                <p>NeurIPS Reviewer 2024, 2025.</p >
-            </li>
-            <li>
-                <p>COLM Reviewer 2025.</p >
-            </li>
-        </ul>
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <a href="#" class="nav-name">Zhengxin Zhang</a>
+        <div class="nav-links">
+            <a href="#news">News</a>
+            <a href="#publications">Publications</a>
+            <a href="#education">Education</a>
+            <a href="#awards">Awards</a>
+            <a href="#experience">Experience</a>
+        </div>
     </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+    <div class="hero-photo">
+        <img src="./zhengxin/zhengxin_pr.jpg" alt="Zhengxin Zhang" />
+    </div>
+    <div class="hero-text">
+        <h1>Zhengxin Zhang</h1>
+        <p class="subtitle">
+            PhD Student in <a href="https://cis.cornell.edu/" target="_blank">Computer Science</a> at <a href="https://www.cornell.edu/" target="_blank">Cornell University</a>
+        </p>
+        <p class="bio">
+            I am a second-year CS PhD student at Cornell advised by
+            <a href="https://www.cs.cornell.edu/home/cardie/" target="_blank">Prof. Claire Cardie</a>.
+            Previously, I was a research assistant at Carnegie Mellon University supervised by
+            <a href="https://www.cs.cmu.edu/~zhihaoj2/" target="_blank">Prof. Zhihao Jia</a>.
+            I obtained my MS at Tsinghua University supervised by
+            <a href="https://www.sigs.tsinghua.edu.cn/jy/main.htm" target="_blank">Prof. Yong Jiang</a>.
+            My research interests include data stream structure and algorithms design,
+            programmable switches, machine learning, and large language models.
+            I received my BS at the <a href="https://jsjxy.xust.edu.cn/" target="_blank">CS</a> department
+            of <a href="https://www.xidian.edu.cn/" target="_blank">Xidian University</a>,
+            where I was supervised by
+            <a href="https://faculty.xidian.edu.cn/XYS1/zh_CN/index/389193/list/index.htm" target="_blank">Prof. Yuesheng Xu</a>.
+        </p>
+        <div class="hero-meta">
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                zz865@cornell.edu
+            </span>
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                Gates Hall G23, Ithaca, NY
+            </span>
+            <a href="https://scholar.google.com/citations?user=dGb05PMAAAAJ&hl=en" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14"><path fill="currentColor" d="M390.9 298.5c0 0 0 .1.1.1 9.2 19.4 14.4 41.1 14.4 64 0 84.1-68.1 152.3-152.1 152.3S101.1 446.6 101.1 362.6s68.1-152.3 152.1-152.3c36.8 0 70.6 13.1 96.9 34.9l-39.2 38.2c-16.2-12.4-36.5-19.8-57.7-19.8-53.1 0-96.3 43.2-96.3 96.4s43.2 96.4 96.3 96.4c42.2 0 72.5-22.4 84.5-53.4h-84.5V348h143.7c1.8 9.6 2.8 19.8 2.8 30.5z"/><path fill="currentColor" d="M256 0L0 204.4l76.8 60.1V204.4L256 68.9l179.2 135.5v60.1L512 204.4z"/></svg>
+                Google Scholar
+            </a>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- News -->
+    <section id="news">
+        <h2>News</h2>
+        <div class="news-item">
+            <span class="news-date">Apr 2026</span>
+            Two papers accepted to <b>ACL 2026 Findings</b>: <em>Better LLM Reasoning via Dual-play</em> and <em>GSM-Noise: Exploring and Enhancing Large Language Models' Reasoning under Noisy Inputs</em>. See you in Vienna!
+        </div>
+        <div class="news-item">
+            <span class="news-date">Nov 2025</span>
+            We released <em>Better LLM Reasoning via Dual-play</em>, a novel framework that trains two nearly identical models adversarially, enabling them to co-evolve through iterative competition without any external supervision.
+            <a href="https://glossy-kettledrum-44a.notion.site/Enhancing-LLM-Reasoning-via-GAN-Style-Training-Without-Supervision-2ae0a05c3a9480219332e019f21979c9" target="_blank">Read the blog post &rarr;</a>
+        </div>
+    </section>
+
+    <!-- Publications -->
+    <section id="publications">
+        <h2>Publications</h2>
+
+        <h3>Preprints</h3>
+
+        <div class="pub">
+            <div class="pub-title">Towards More Robust Retrieval-Augmented Generation: Evaluating RAG Under Adversarial Poisoning Attacks</div>
+            <div class="pub-authors">Jinyan Su, Jin Peng Zhou, <b>Zhengxin Zhang</b>, Preslav Nakov, Claire Cardie</div>
+        </div>
+
+        <div class="pub">
+            <div class="pub-title">Graph-based Multi-Task Learning Framework for Model Generalization across Network Topologies</div>
+            <div class="pub-authors">Jingyu Xiao, Qing Li, <b>Zhengxin Zhang</b>, Dan Zhao, and Yong Jiang</div>
+        </div>
+
+        <h3>2026</h3>
+
+        <div class="pub">
+            <div class="pub-title">Better LLM Reasoning via Dual-play</div>
+            <div class="pub-authors"><b>Zhengxin Zhang</b>*, Chengyu Huang*, Aochong Oliver Li, Claire Cardie</div>
+            <div class="pub-venue">Findings of the Association for Computational Linguistics (<b>ACL</b>), 2026</div>
+        </div>
+
+        <div class="pub">
+            <div class="pub-title">GSM-Noise: Exploring and Enhancing Large Language Models' Reasoning under Noisy Inputs</div>
+            <div class="pub-authors"><b>Zhengxin Zhang</b>*, Chengyu Huang*, Xufu Liu, Dan Zhao, Jinyan Su, Claire Cardie</div>
+            <div class="pub-venue">Findings of the Association for Computational Linguistics (<b>ACL</b>), 2026</div>
+        </div>
+
+        <div class="pub">
+            <div class="pub-title">HumanGuideNet: Adapter-Based Alignment of Deep Neural Networks with Human Similarity Judgments</div>
+            <div class="pub-authors">Xufu Liu, Yifan Yang, <b>Zhengxin Zhang</b></div>
+            <div class="pub-venue">The IEEE/CVF Winter Conference on Applications of Computer Vision (<b>WACV</b>), Mar 2026</div>
+        </div>
+
+        <div class="pub">
+            <div class="pub-title">HAPO: Training Language Models to Reason Concisely via History-Aware Policy Optimization</div>
+            <div class="pub-authors">Chengyu Huang*, <b>Zhengxin Zhang</b>*, Claire Cardie</div>
+            <div class="pub-venue">The 40th Annual AAAI Conference on Artificial Intelligence (<b>AAAI</b>), Jan 2026</div>
+        </div>
+
+        <h3>2025</h3>
+
+        <div class="pub">
+            <div class="pub-title">Learning-Enhanced High-Throughput Pattern Matching Based on Programmable Data Plane</div>
+            <div class="pub-authors">Guanglin Duan*, Yucheng Huang*, <b>Zhengxin Zhang</b>*, Qing Li, Dan Zhao, and Yong Jiang</div>
+            <div class="pub-venue">The 2025 USENIX Annual Technical Conference (<b>ATC</b>), July 2025</div>
+        </div>
+
+        <h3>2024</h3>
+
+        <div class="pub">
+            <div class="pub-title">
+                Quantized Side Tuning: Fast and Efficient Tuning of Quantized Large Language Models
+                <span class="award-badge">Outstanding Paper Award</span>
+            </div>
+            <div class="pub-authors"><b>Zhengxin Zhang</b>, Dan Zhao, Xupeng Miao, Gabriele Oliaro, Qing Li, Yong Jiang, and Zhihao Jia</div>
+            <div class="pub-venue">The 62nd Annual Meeting of the Association for Computational Linguistics (<b>ACL</b>), August 2024. Oral presentation.</div>
+        </div>
+
+        <div class="pub">
+            <div class="pub-title">Specinfer: Accelerating Large Language Model Serving with Tree-Based Speculative Inference and Verification</div>
+            <div class="pub-authors">Xupeng Miao, Gabriele Oliaro, Zhihao Zhang, Xinhao Cheng, Zeyu Wang, <b>Zhengxin Zhang</b>, Rae Ying Yee Wong, Alan Zhu, Lijie Yang, Xiaoxiang Shi, Chunan Shi, Zhuoming Chen, Daiyaan Arfeen, Reyna Abhyankar, Zhihao Jia</div>
+            <div class="pub-venue">Proceedings of the 29th ACM International Conference on Architectural Support for Programming Languages and Operating Systems (<b>ASPLOS</b>), July 2024</div>
+        </div>
+
+        <div class="pub">
+            <div class="pub-title">DNSGuard: In-network Defense against DNS Attacks</div>
+            <div class="pub-authors">Guanglin Duan, Qing Li, <b>Zhengxin Zhang</b>, Dan Zhao, Guorui Xie, and Yong Jiang</div>
+            <div class="pub-venue">IEEE Transactions on Dependable and Secure Computing (<b>TDSC</b>), July 2024</div>
+        </div>
+
+        <div class="pub">
+            <div class="pub-title">SeIoT: Smart Home Network Anomaly Detection via Knowledge Graph</div>
+            <div class="pub-authors">Qing Li, Ruoyu Li, Yucheng Huang, Qingsong Zou, Dan Zhao, <b>Zhengxin Zhang</b>, and Yong Jiang</div>
+            <div class="pub-venue">IEEE Transactions on Information Forensics and Security (<b>TIFS</b>), July 2024</div>
+        </div>
+
+        <h3>2023</h3>
+
+        <div class="pub">
+            <div class="pub-title">Metis: Understanding and Enhancing Regular Expressions in Network</div>
+            <div class="pub-authors"><b>Zhengxin Zhang</b>*, Yucheng Huang*, Guanglin Duan*, Qing Li, Dan Zhao, Yong Jiang, Lianbo Ma, Xiao Xi, and Hengyang Xu</div>
+            <div class="pub-venue">Neural Information Processing Systems (<b>NeurIPS</b>), December 2023</div>
+        </div>
+
+        <div class="pub">
+            <div class="pub-title">Pontus: Finding Waves in Data Streams</div>
+            <div class="pub-authors"><b>Zhengxin Zhang</b>, Qing Li, Guanglin Duan, Dan Zhao, Jingyu Xiao, Guorui Xie, and Yong Jiang</div>
+            <div class="pub-venue">ACM SIGMOD International Conference on Management of Data (<b>SIGMOD</b>), June 2023</div>
+        </div>
+
+        <p style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.75rem;">* denotes equal contribution</p>
+    </section>
+
+    <!-- Education -->
+    <section id="education">
+        <h2>Education</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="tl-period">2024 &ndash; Present</div>
+                <div class="tl-title">Ph.D. in Computer Science, Cornell University</div>
+            </div>
+            <div class="timeline-item">
+                <div class="tl-period">2023 &ndash; 2024</div>
+                <div class="tl-title">Visiting Scholar in Computer Science, Carnegie Mellon University</div>
+            </div>
+            <div class="timeline-item">
+                <div class="tl-period">2021 &ndash; 2024</div>
+                <div class="tl-title">M.S. in Computer Science and Engineering, Tsinghua University</div>
+                <div class="tl-detail">GPA 3.88 / 4.0</div>
+            </div>
+            <div class="timeline-item">
+                <div class="tl-period">2017 &ndash; 2021</div>
+                <div class="tl-title">B.S. in Software Engineering, Xidian University</div>
+                <div class="tl-detail">GPA 3.86 / 4.0 &middot; Rank 2 / 110</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Awards -->
+    <section id="awards">
+        <h2>Awards</h2>
+        <ul class="award-list">
+            <li><span class="award-dot"></span>ACL Outstanding Paper Award, 2024</li>
+            <li><span class="award-dot"></span>Outstanding Master Dissertation Award, Tsinghua University, 2024</li>
+            <li><span class="award-dot"></span>First Prize Scholarship, Tsinghua University, 2022 &amp; 2023</li>
+            <li><span class="award-dot"></span>Second Place, Intel&reg; 2022 P4 China Hackathon</li>
+            <li><span class="award-dot"></span>Outstanding Graduates, Ministry of Education of Shaanxi Province</li>
+            <li><span class="award-dot"></span>Outstanding Student, Xidian University, 2018 &ndash; 2020</li>
+            <li><span class="award-dot"></span>National Scholarship, Ministry of Education of the People's Republic of China, 2020</li>
+            <li><span class="award-dot"></span>First Prize Scholarship, Xidian University, 2018 &amp; 2019</li>
+            <li><span class="award-dot"></span>First Prize (selected for excellent papers, winning rate 0.036&permil;), China Undergraduate Mathematical Contest in Modeling, 2019</li>
+            <li><span class="award-dot"></span>First Prize, Xidian University Mathematical Modeling Contest, 2019</li>
+            <li><span class="award-dot"></span>Meritorious Winner, International Mathematical Contest in Modeling, 2018</li>
+        </ul>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+        <h2>Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="tl-period">Jun 2023 &ndash; Aug 2024</div>
+                <div class="tl-title">Research Assistant, Carnegie Mellon University</div>
+                <div class="tl-detail">Supervised by <a href="https://www.cs.cmu.edu/~zhihaoj2/" target="_blank" style="color: var(--accent); text-decoration: none;">Prof. Zhihao Jia</a> &middot; Machine learning and large language models</div>
+            </div>
+            <div class="timeline-item">
+                <div class="tl-period">Sep 2022 &ndash; Aug 2023</div>
+                <div class="tl-title">Research Intern, Tencent, Shenzhen</div>
+                <div class="tl-detail">XDP and eBPF algorithm design</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Talks -->
+    <section id="talks">
+        <h2>Talks</h2>
+        <div class="pill-list">
+            <div class="pill">Cornell NLP Seminar: Quantized Side Tuning &middot; Sep 2024</div>
+            <div class="pill">Tencent: Regular Expressions in the Data Plane &middot; Dec 2023</div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+        <h2>Academic Service</h2>
+        <div class="pill-list">
+            <div class="pill">ICLR Reviewer 2025</div>
+            <div class="pill">AAAI Programme Committee 2025</div>
+            <div class="pill">NeurIPS Reviewer 2024, 2025</div>
+            <div class="pill">COLM Reviewer 2025</div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    &copy; 2026 Zhengxin Zhang &middot; Cornell University
+</footer>
+
 </body>
-<grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
 </html>
