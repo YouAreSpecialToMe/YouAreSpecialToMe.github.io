@@ -6,23 +6,53 @@
     <title>Zhengxin Zhang | Cornell CS PhD</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <style>
         :root {
             --bg: #fafaf9;
+            --bg-soft: #f5f5f4;
             --bg-card: #ffffff;
             --text: #1c1917;
             --text-secondary: #57534e;
+            --text-tertiary: #a8a29e;
             --accent: #b91c1c;
+            --accent-2: #dc2626;
             --accent-light: #fef2f2;
+            --accent-glow: rgba(185, 28, 28, 0.15);
             --border: #e7e5e4;
-            --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-            --radius: 12px;
+            --border-soft: #f0eeec;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+            --shadow: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+            --shadow-lg: 0 16px 40px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+            --shadow-glow: 0 0 0 1px var(--accent-glow), 0 8px 24px var(--accent-glow);
+            --radius-sm: 8px;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --gradient-accent: linear-gradient(135deg, #b91c1c 0%, #dc2626 50%, #f97316 100%);
+            --gradient-soft: linear-gradient(180deg, rgba(185,28,28,0.04) 0%, rgba(185,28,28,0) 100%);
+        }
+
+        [data-theme="dark"] {
+            --bg: #0c0a09;
+            --bg-soft: #1c1917;
+            --bg-card: #1c1917;
+            --text: #fafaf9;
+            --text-secondary: #a8a29e;
+            --text-tertiary: #78716c;
+            --accent: #f87171;
+            --accent-2: #fca5a5;
+            --accent-light: rgba(248, 113, 113, 0.08);
+            --accent-glow: rgba(248, 113, 113, 0.2);
+            --border: #292524;
+            --border-soft: #1f1c1a;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow: 0 4px 12px rgba(0,0,0,0.4);
+            --shadow-lg: 0 16px 40px rgba(0,0,0,0.5);
+            --gradient-accent: linear-gradient(135deg, #f87171 0%, #fca5a5 50%, #fde68a 100%);
+            --gradient-soft: linear-gradient(180deg, rgba(248,113,113,0.06) 0%, rgba(248,113,113,0) 100%);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html { scroll-behavior: smooth; }
 
         body {
@@ -31,161 +61,371 @@
             color: var(--text);
             line-height: 1.7;
             font-size: 15px;
+            transition: background 0.3s, color 0.3s;
+            overflow-x: hidden;
         }
+
+        /* --- Animated background grid --- */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background-image:
+                linear-gradient(var(--border-soft) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 80%);
+            opacity: 0.5;
+        }
+
+        .bg-blob {
+            position: fixed;
+            z-index: -1;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .bg-blob.b1 {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(251,146,60,0.3), transparent 70%);
+            top: -200px; right: -100px;
+        }
+        .bg-blob.b2 {
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(185,28,28,0.2), transparent 70%);
+            top: 20%; left: -150px;
+        }
+        [data-theme="dark"] .bg-blob.b1 { background: radial-gradient(circle, rgba(248,113,113,0.15), transparent 70%); opacity: 0.6; }
+        [data-theme="dark"] .bg-blob.b2 { background: radial-gradient(circle, rgba(252,211,77,0.1), transparent 70%); opacity: 0.5; }
 
         /* --- Navigation --- */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(250, 250, 249, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(250, 250, 249, 0.7);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
             border-bottom: 1px solid var(--border);
             z-index: 100;
             padding: 0 2rem;
+            transition: background 0.3s, border-color 0.3s;
         }
+        [data-theme="dark"] nav { background: rgba(12, 10, 9, 0.75); }
+
         nav .nav-inner {
-            max-width: 960px;
+            max-width: 1000px;
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 56px;
+            height: 60px;
         }
         nav .nav-name {
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1rem;
             color: var(--text);
             text-decoration: none;
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        nav .nav-links { display: flex; gap: 1.75rem; }
+        nav .nav-name::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--accent-glow);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.2); }
+        }
+        nav .nav-links {
+            display: flex;
+            gap: 0.25rem;
+            align-items: center;
+        }
         nav .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
             font-size: 0.85rem;
             font-weight: 500;
-            transition: color 0.2s;
+            padding: 0.4rem 0.85rem;
+            border-radius: 999px;
+            transition: all 0.2s;
         }
-        nav .nav-links a:hover { color: var(--accent); }
-
-        /* --- Hero / Profile --- */
-        .hero {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 7rem 2rem 3rem;
+        nav .nav-links a:hover {
+            color: var(--accent);
+            background: var(--accent-light);
+        }
+        .theme-toggle {
+            margin-left: 0.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
             display: flex;
-            gap: 3rem;
             align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
         }
-        .hero-photo {
-            flex-shrink: 0;
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: rotate(20deg);
+        }
+        .theme-toggle svg { width: 16px; height: 16px; }
+        [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+        [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+        .theme-toggle .icon-sun { display: none; }
+        .theme-toggle .icon-moon { display: block; }
+
+        /* --- Hero --- */
+        .hero {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+            display: flex;
+            gap: 3.5rem;
+            align-items: center;
+            position: relative;
+        }
+        .hero-photo { flex-shrink: 0; position: relative; }
+        .hero-photo::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            opacity: 0.4;
+            filter: blur(20px);
+            z-index: -1;
+            animation: glow 4s ease-in-out infinite;
+        }
+        @keyframes glow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.05); }
         }
         .hero-photo img {
-            width: 180px;
-            height: 180px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid var(--bg-card);
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-lg);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .hero-photo img:hover { transform: scale(1.05); }
+
+        .hero-text { flex: 1; }
+        .hero-text .greeting {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 0.3rem 0.85rem;
+            border-radius: 999px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--accent-glow);
+        }
+        .hero-text .greeting .wave {
+            display: inline-block;
+            animation: wave 2.5s ease-in-out infinite;
+            transform-origin: 70% 70%;
+        }
+        @keyframes wave {
+            0%, 60%, 100% { transform: rotate(0deg); }
+            10%, 30% { transform: rotate(14deg); }
+            20% { transform: rotate(-8deg); }
+            40% { transform: rotate(-4deg); }
+            50% { transform: rotate(10deg); }
         }
         .hero-text h1 {
             font-family: 'Crimson Pro', Georgia, serif;
-            font-size: 2.4rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.25rem;
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--text) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .hero-text .subtitle {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             color: var(--text-secondary);
-            margin-bottom: 1rem;
+            margin-bottom: 1.25rem;
+            font-weight: 400;
         }
         .hero-text .subtitle a {
             color: var(--accent);
             text-decoration: none;
+            font-weight: 500;
+            position: relative;
         }
-        .hero-text .subtitle a:hover { text-decoration: underline; }
+        .hero-text .subtitle a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0;
+            width: 100%; height: 1px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+        .hero-text .subtitle a:hover::after { transform: scaleX(1); }
         .hero-text .bio {
             color: var(--text-secondary);
-            font-size: 0.92rem;
+            font-size: 0.94rem;
             line-height: 1.8;
         }
         .hero-text .bio a {
-            color: var(--accent);
+            color: var(--text);
             text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.2s;
         }
-        .hero-text .bio a:hover { text-decoration: underline; }
+        .hero-text .bio a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
         .hero-meta {
             display: flex;
-            gap: 1.25rem;
-            margin-top: 1.25rem;
+            gap: 0.6rem;
+            margin-top: 1.5rem;
             flex-wrap: wrap;
         }
         .hero-meta a, .hero-meta span {
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.45rem;
             font-size: 0.82rem;
             color: var(--text-secondary);
             text-decoration: none;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            padding: 0.35rem 0.85rem;
+            padding: 0.45rem 0.95rem;
             border-radius: 999px;
-            transition: all 0.2s;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
         }
         .hero-meta a:hover {
             border-color: var(--accent);
             color: var(--accent);
             background: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
         }
         .hero-meta svg { width: 14px; height: 14px; }
 
-        /* --- Main content --- */
+        /* --- Container --- */
         .container {
-            max-width: 960px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 0 2rem 4rem;
         }
 
         /* --- Section --- */
         section {
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         section h2 {
             font-family: 'Crimson Pro', Georgia, serif;
-            font-size: 1.6rem;
-            font-weight: 600;
-            margin-bottom: 1.25rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--border);
-            letter-spacing: -0.01em;
+            font-size: 1.9rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        section h2::before {
+            content: '';
+            width: 4px;
+            height: 1.5rem;
+            background: var(--gradient-accent);
+            border-radius: 2px;
         }
         section h3 {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-tertiary);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.75rem;
-            margin-top: 1.5rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.85rem;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        section h3::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--text-tertiary);
         }
         section h3:first-of-type { margin-top: 0; }
 
         /* --- News card --- */
         .news-item {
-            background: var(--accent-light);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-left: 3px solid var(--accent);
-            padding: 1rem 1.25rem;
-            border-radius: 0 var(--radius) var(--radius) 0;
+            padding: 1.1rem 1.35rem;
+            border-radius: var(--radius);
             margin-bottom: 0.75rem;
             font-size: 0.92rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
         }
+        .news-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--gradient-soft);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .news-item:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow);
+        }
+        .news-item:hover::before { opacity: 1; }
         .news-item .news-date {
-            font-weight: 600;
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.74rem;
+            font-weight: 500;
             color: var(--accent);
-            margin-right: 0.5rem;
+            background: var(--accent-light);
+            padding: 0.15rem 0.55rem;
+            border-radius: 4px;
+            margin-right: 0.6rem;
         }
         .news-item a {
             color: var(--accent);
@@ -199,58 +439,93 @@
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 1.15rem 1.35rem;
-            margin-bottom: 0.75rem;
-            transition: box-shadow 0.2s, border-color 0.2s;
+            padding: 1.25rem 1.4rem;
+            margin-bottom: 0.85rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .pub::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--gradient-accent);
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.3s;
         }
         .pub:hover {
-            box-shadow: var(--shadow-md);
-            border-color: #d6d3d1;
+            box-shadow: var(--shadow);
+            border-color: transparent;
+            transform: translateY(-2px);
         }
+        .pub:hover::before { transform: scaleY(1); }
         .pub .pub-title {
             font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 0.3rem;
+            font-size: 0.97rem;
+            margin-bottom: 0.35rem;
+            color: var(--text);
+            line-height: 1.5;
         }
         .pub .pub-authors {
-            font-size: 0.85rem;
+            font-size: 0.86rem;
             color: var(--text-secondary);
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.4rem;
         }
         .pub .pub-venue {
             font-size: 0.82rem;
-            color: var(--text-secondary);
+            color: var(--text-tertiary);
+            font-family: 'JetBrains Mono', monospace;
         }
-        .pub .pub-venue b { color: var(--text); }
+        .pub .pub-venue b { color: var(--text-secondary); font-weight: 500; }
         .pub .award-badge {
-            display: inline-block;
-            background: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            background: var(--gradient-accent);
             color: #fff;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             font-weight: 600;
-            padding: 0.15rem 0.55rem;
+            padding: 0.2rem 0.6rem;
             border-radius: 999px;
-            margin-left: 0.4rem;
+            margin-left: 0.5rem;
             vertical-align: middle;
+            box-shadow: 0 2px 8px var(--accent-glow);
         }
-        .pub .pub-links { margin-top: 0.4rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .pub .award-badge::before {
+            content: '★';
+            font-size: 0.7rem;
+        }
+        .pub .pub-links { margin-top: 0.6rem; display: flex; gap: 0.4rem; flex-wrap: wrap; }
         .pub .pub-links a {
-            font-size: 0.78rem;
+            font-size: 0.74rem;
             font-weight: 500;
             color: var(--accent);
             text-decoration: none;
-            border: 1px solid var(--accent);
-            padding: 0.15rem 0.6rem;
+            background: var(--accent-light);
+            border: 1px solid transparent;
+            padding: 0.2rem 0.7rem;
             border-radius: 999px;
             transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-family: 'JetBrains Mono', monospace;
         }
         .pub .pub-links a:hover {
             background: var(--accent);
             color: #fff;
+            transform: translateY(-1px);
+        }
+        .pub .pub-links a::before {
+            content: '↗';
+            font-size: 0.85rem;
         }
 
-        /* --- Timeline (Education / Internships) --- */
-        .timeline { position: relative; padding-left: 1.5rem; }
+        /* --- Timeline --- */
+        .timeline { position: relative; padding-left: 1.75rem; }
         .timeline::before {
             content: '';
             position: absolute;
@@ -258,116 +533,184 @@
             top: 0.5rem;
             bottom: 0.5rem;
             width: 2px;
-            background: var(--border);
+            background: linear-gradient(180deg, var(--accent) 0%, var(--border) 100%);
         }
         .timeline-item {
             position: relative;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.75rem;
         }
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -1.5rem;
+            left: -1.78rem;
             top: 0.55rem;
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
+            background: var(--bg);
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 0 4px var(--bg), 0 0 12px var(--accent-glow);
+            transition: all 0.3s;
+        }
+        .timeline-item:hover::before {
             background: var(--accent);
-            border: 2px solid var(--bg);
+            transform: scale(1.2);
         }
         .timeline-item .tl-period {
-            font-size: 0.78rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.74rem;
             color: var(--accent);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.15rem;
         }
         .timeline-item .tl-title {
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.97rem;
+            color: var(--text);
         }
         .timeline-item .tl-detail {
-            font-size: 0.85rem;
+            font-size: 0.86rem;
             color: var(--text-secondary);
+            margin-top: 0.2rem;
         }
+        .timeline-item .tl-detail a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .timeline-item .tl-detail a:hover { text-decoration: underline; }
 
-        /* --- Awards list --- */
-        .award-list { list-style: none; }
-        .award-list li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.9rem;
+        /* --- Awards grid --- */
+        .award-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 0.6rem;
+            list-style: none;
+        }
+        .award-grid li {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 0.7rem 1rem;
+            font-size: 0.86rem;
             display: flex;
-            align-items: baseline;
-            gap: 0.5rem;
+            align-items: flex-start;
+            gap: 0.6rem;
+            transition: all 0.2s;
         }
-        .award-list li:last-child { border-bottom: none; }
-        .award-list .award-dot {
+        .award-grid li:hover {
+            border-color: var(--accent);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+        .award-grid .award-icon {
             flex-shrink: 0;
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-            margin-top: 0.5rem;
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-top: 0.1rem;
         }
 
-        /* --- Service / Talks pills --- */
+        /* --- Pills --- */
         .pill-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
         .pill {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            padding: 0.4rem 0.9rem;
+            padding: 0.5rem 1rem;
             border-radius: 999px;
-            font-size: 0.82rem;
+            font-size: 0.83rem;
             color: var(--text-secondary);
+            transition: all 0.2s;
+            cursor: default;
+        }
+        .pill:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-light);
+            transform: translateY(-1px);
         }
 
         /* --- Footer --- */
         footer {
             text-align: center;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             font-size: 0.78rem;
-            color: #a8a29e;
+            color: var(--text-tertiary);
             border-top: 1px solid var(--border);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        footer .heart { color: var(--accent); display: inline-block; animation: pulse 1.5s infinite; }
+
+        /* --- Scroll progress bar --- */
+        .scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            background: var(--gradient-accent);
+            width: 0%;
+            z-index: 200;
+            transition: width 0.1s;
+            box-shadow: 0 0 10px var(--accent-glow);
         }
 
         /* --- Responsive --- */
-        @media (max-width: 700px) {
+        @media (max-width: 768px) {
             .hero {
                 flex-direction: column;
                 text-align: center;
-                padding-top: 5rem;
-                gap: 1.5rem;
+                padding-top: 6rem;
+                gap: 2rem;
             }
             .hero-meta { justify-content: center; }
-            nav .nav-links { gap: 1rem; }
-            nav .nav-links a { font-size: 0.78rem; }
-            .hero-text h1 { font-size: 1.8rem; }
+            .hero-text h1 { font-size: 2.2rem; }
+            .hero-text .greeting { margin-left: auto; margin-right: auto; }
+            nav { padding: 0 1rem; }
+            nav .nav-links { gap: 0.1rem; }
+            nav .nav-links a {
+                font-size: 0.78rem;
+                padding: 0.3rem 0.5rem;
+            }
+            nav .nav-links a.hide-mobile { display: none; }
+            section h2 { font-size: 1.5rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
 <body>
 
-<!-- Navigation -->
+<div class="bg-grid"></div>
+<div class="bg-blob b1"></div>
+<div class="bg-blob b2"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
+
 <nav>
     <div class="nav-inner">
         <a href="#" class="nav-name">Zhengxin Zhang</a>
         <div class="nav-links">
             <a href="#news">News</a>
             <a href="#publications">Publications</a>
-            <a href="#education">Education</a>
-            <a href="#awards">Awards</a>
-            <a href="#experience">Experience</a>
+            <a href="#education" class="hide-mobile">Education</a>
+            <a href="#awards" class="hide-mobile">Awards</a>
+            <a href="#experience" class="hide-mobile">Experience</a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            </button>
         </div>
     </div>
 </nav>
 
-<!-- Hero -->
 <header class="hero">
     <div class="hero-photo">
         <img src="./zhengxin/zhengxin_pr.jpg" alt="Zhengxin Zhang" />
     </div>
     <div class="hero-text">
+        <span class="greeting"><span class="wave">👋</span> Hello, I'm</span>
         <h1>Zhengxin Zhang</h1>
         <p class="subtitle">
             PhD Student in <a href="https://cis.cornell.edu/" target="_blank">Computer Science</a> at <a href="https://www.cornell.edu/" target="_blank">Cornell University</a>
@@ -405,7 +748,6 @@
 
 <main class="container">
 
-    <!-- News -->
     <section id="news">
         <h2>News</h2>
         <div class="news-item">
@@ -415,11 +757,10 @@
         <div class="news-item">
             <span class="news-date">Nov 2025</span>
             We released <em>Better LLM Reasoning via Dual-play</em>, a novel framework that trains two nearly identical models adversarially, enabling them to co-evolve through iterative competition without any external supervision.
-            <a href="https://glossy-kettledrum-44a.notion.site/Enhancing-LLM-Reasoning-via-GAN-Style-Training-Without-Supervision-2ae0a05c3a9480219332e019f21979c9" target="_blank">Read the blog post &rarr;</a>
+            <a href="https://glossy-kettledrum-44a.notion.site/Enhancing-LLM-Reasoning-via-GAN-Style-Training-Without-Supervision-2ae0a05c3a9480219332e019f21979c9" target="_blank">Read the blog post →</a>
         </div>
     </section>
 
-    <!-- Publications -->
     <section id="publications">
         <h2>Publications</h2>
 
@@ -479,7 +820,7 @@
         <div class="pub">
             <div class="pub-title">
                 Quantized Side Tuning: Fast and Efficient Tuning of Quantized Large Language Models
-                <span class="award-badge">Outstanding Paper Award</span>
+                <span class="award-badge">Outstanding Paper</span>
             </div>
             <div class="pub-authors"><b>Zhengxin Zhang</b>, Dan Zhao, Xupeng Miao, Gabriele Oliaro, Qing Li, Yong Jiang, and Zhihao Jia</div>
             <div class="pub-venue">The 62nd Annual Meeting of the Association for Computational Linguistics (<b>ACL</b>), August 2024. Oral presentation.</div>
@@ -523,79 +864,74 @@
             <div class="pub-links"><a href="https://dl.acm.org/doi/10.1145/3588960" target="_blank">ACM</a></div>
         </div>
 
-        <p style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.75rem;">* denotes equal contribution</p>
+        <p style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: 1rem; font-family: 'JetBrains Mono', monospace;">* denotes equal contribution</p>
     </section>
 
-    <!-- Education -->
     <section id="education">
         <h2>Education</h2>
         <div class="timeline">
             <div class="timeline-item">
-                <div class="tl-period">2024 &ndash; Present</div>
+                <div class="tl-period">2024 — Present</div>
                 <div class="tl-title">Ph.D. in Computer Science, Cornell University</div>
             </div>
             <div class="timeline-item">
-                <div class="tl-period">2023 &ndash; 2024</div>
+                <div class="tl-period">2023 — 2024</div>
                 <div class="tl-title">Visiting Scholar in Computer Science, Carnegie Mellon University</div>
             </div>
             <div class="timeline-item">
-                <div class="tl-period">2021 &ndash; 2024</div>
+                <div class="tl-period">2021 — 2024</div>
                 <div class="tl-title">M.S. in Computer Science and Engineering, Tsinghua University</div>
                 <div class="tl-detail">GPA 3.88 / 4.0</div>
             </div>
             <div class="timeline-item">
-                <div class="tl-period">2017 &ndash; 2021</div>
+                <div class="tl-period">2017 — 2021</div>
                 <div class="tl-title">B.S. in Software Engineering, Xidian University</div>
-                <div class="tl-detail">GPA 3.86 / 4.0 &middot; Rank 2 / 110</div>
+                <div class="tl-detail">GPA 3.86 / 4.0 · Rank 2 / 110</div>
             </div>
         </div>
     </section>
 
-    <!-- Awards -->
     <section id="awards">
         <h2>Awards</h2>
-        <ul class="award-list">
-            <li><span class="award-dot"></span>ACL Outstanding Paper Award, 2024</li>
-            <li><span class="award-dot"></span>Outstanding Master Dissertation Award, Tsinghua University, 2024</li>
-            <li><span class="award-dot"></span>First Prize Scholarship, Tsinghua University, 2022 &amp; 2023</li>
-            <li><span class="award-dot"></span>Second Place, Intel&reg; 2022 P4 China Hackathon</li>
-            <li><span class="award-dot"></span>Outstanding Graduates, Ministry of Education of Shaanxi Province</li>
-            <li><span class="award-dot"></span>Outstanding Student, Xidian University, 2018 &ndash; 2020</li>
-            <li><span class="award-dot"></span>National Scholarship, Ministry of Education of the People's Republic of China, 2020</li>
-            <li><span class="award-dot"></span>First Prize Scholarship, Xidian University, 2018 &amp; 2019</li>
-            <li><span class="award-dot"></span>First Prize (selected for excellent papers, winning rate 0.036&permil;), China Undergraduate Mathematical Contest in Modeling, 2019</li>
-            <li><span class="award-dot"></span>First Prize, Xidian University Mathematical Modeling Contest, 2019</li>
-            <li><span class="award-dot"></span>Meritorious Winner, International Mathematical Contest in Modeling, 2018</li>
+        <ul class="award-grid">
+            <li><span class="award-icon">★</span><span>ACL Outstanding Paper Award, 2024</span></li>
+            <li><span class="award-icon">★</span><span>Outstanding Master Dissertation, Tsinghua, 2024</span></li>
+            <li><span class="award-icon">★</span><span>First Prize Scholarship, Tsinghua, 2022 & 2023</span></li>
+            <li><span class="award-icon">★</span><span>Second Place, Intel® P4 China Hackathon, 2022</span></li>
+            <li><span class="award-icon">★</span><span>Outstanding Graduates, Shaanxi Province</span></li>
+            <li><span class="award-icon">★</span><span>Outstanding Student, Xidian, 2018–2020</span></li>
+            <li><span class="award-icon">★</span><span>National Scholarship of China, 2020</span></li>
+            <li><span class="award-icon">★</span><span>First Prize Scholarship, Xidian, 2018 & 2019</span></li>
+            <li><span class="award-icon">★</span><span>First Prize (top 0.036‰), CUMCM, 2019</span></li>
+            <li><span class="award-icon">★</span><span>First Prize, Xidian Math Modeling, 2019</span></li>
+            <li><span class="award-icon">★</span><span>Meritorious Winner, ICM, 2018</span></li>
         </ul>
     </section>
 
-    <!-- Experience -->
     <section id="experience">
         <h2>Experience</h2>
         <div class="timeline">
             <div class="timeline-item">
-                <div class="tl-period">Jun 2023 &ndash; Aug 2024</div>
+                <div class="tl-period">Jun 2023 — Aug 2024</div>
                 <div class="tl-title">Research Assistant, Carnegie Mellon University</div>
-                <div class="tl-detail">Supervised by <a href="https://www.cs.cmu.edu/~zhihaoj2/" target="_blank" style="color: var(--accent); text-decoration: none;">Prof. Zhihao Jia</a> &middot; Machine learning and large language models</div>
+                <div class="tl-detail">Supervised by <a href="https://www.cs.cmu.edu/~zhihaoj2/" target="_blank">Prof. Zhihao Jia</a> · Machine learning and large language models</div>
             </div>
             <div class="timeline-item">
-                <div class="tl-period">Sep 2022 &ndash; Aug 2023</div>
+                <div class="tl-period">Sep 2022 — Aug 2023</div>
                 <div class="tl-title">Research Intern, Tencent, Shenzhen</div>
                 <div class="tl-detail">XDP and eBPF algorithm design</div>
             </div>
         </div>
     </section>
 
-    <!-- Talks -->
     <section id="talks">
         <h2>Talks</h2>
         <div class="pill-list">
-            <div class="pill">Cornell NLP Seminar: Quantized Side Tuning &middot; Sep 2024</div>
-            <div class="pill">Tencent: Regular Expressions in the Data Plane &middot; Dec 2023</div>
+            <div class="pill">Cornell NLP Seminar · Quantized Side Tuning · Sep 2024</div>
+            <div class="pill">Tencent · Regular Expressions in the Data Plane · Dec 2023</div>
         </div>
     </section>
 
-    <!-- Services -->
     <section id="services">
         <h2>Academic Service</h2>
         <div class="pill-list">
@@ -609,8 +945,41 @@
 </main>
 
 <footer>
-    &copy; 2026 Zhengxin Zhang &middot; Cornell University
+    Built with <span class="heart">♥</span> · © 2026 Zhengxin Zhang
 </footer>
+
+<script>
+    // Theme toggle with persistence
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeToggle.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+    });
+
+    // Scroll progress bar
+    const progress = document.getElementById('scrollProgress');
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.width = (scrolled / total * 100) + '%';
+    });
+
+    // Fade-in sections on scroll
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    sections.forEach(s => observer.observe(s));
+</script>
 
 </body>
 </html>
