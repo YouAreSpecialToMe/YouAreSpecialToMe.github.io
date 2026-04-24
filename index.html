@@ -1,990 +1,362 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zhengxin Zhang | Cornell CS PhD</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    <style>
-        :root {
-            --bg: #fafaf9;
-            --bg-soft: #f5f5f4;
-            --bg-card: #ffffff;
-            --text: #1c1917;
-            --text-secondary: #57534e;
-            --text-tertiary: #a8a29e;
-            --accent: #b91c1c;
-            --accent-2: #dc2626;
-            --accent-light: #fef2f2;
-            --accent-glow: rgba(185, 28, 28, 0.15);
-            --border: #e7e5e4;
-            --border-soft: #f0eeec;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
-            --shadow: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
-            --shadow-lg: 0 16px 40px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
-            --shadow-glow: 0 0 0 1px var(--accent-glow), 0 8px 24px var(--accent-glow);
-            --radius-sm: 8px;
-            --radius: 14px;
-            --radius-lg: 20px;
-            --gradient-accent: linear-gradient(135deg, #b91c1c 0%, #dc2626 50%, #f97316 100%);
-            --gradient-soft: linear-gradient(180deg, rgba(185,28,28,0.04) 0%, rgba(185,28,28,0) 100%);
-        }
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zhengxin Zhang - Homepage</title>
+  <meta name="description" content="Zhengxin Zhang — PhD student in Computer Science at Cornell University.">
+  <meta name="keywords" content="Zhengxin Zhang, Cornell, PhD, LLM, machine learning, NLP, data streams, programmable switches">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 
-        [data-theme="dark"] {
-            --bg: #0c0a09;
-            --bg-soft: #1c1917;
-            --bg-card: #1c1917;
-            --text: #fafaf9;
-            --text-secondary: #a8a29e;
-            --text-tertiary: #78716c;
-            --accent: #f87171;
-            --accent-2: #fca5a5;
-            --accent-light: rgba(248, 113, 113, 0.08);
-            --accent-glow: rgba(248, 113, 113, 0.2);
-            --border: #292524;
-            --border-soft: #1f1c1a;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-            --shadow: 0 4px 12px rgba(0,0,0,0.4);
-            --shadow-lg: 0 16px 40px rgba(0,0,0,0.5);
-            --gradient-accent: linear-gradient(135deg, #f87171 0%, #fca5a5 50%, #fde68a 100%);
-            --gradient-soft: linear-gradient(180deg, rgba(248,113,113,0.06) 0%, rgba(248,113,113,0) 100%);
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/a860a211d3.js" crossorigin="anonymous"></script>
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-            font-size: 15px;
-            transition: background 0.3s, color 0.3s;
-            overflow-x: hidden;
-        }
-
-        /* --- Animated background grid --- */
-        .bg-grid {
-            position: fixed;
-            inset: 0;
-            z-index: -2;
-            background-image:
-                linear-gradient(var(--border-soft) 1px, transparent 1px),
-                linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
-            background-size: 48px 48px;
-            mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 80%);
-            -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 80%);
-            opacity: 0.5;
-        }
-
-        .bg-blob {
-            position: fixed;
-            z-index: -1;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
-            pointer-events: none;
-        }
-        .bg-blob.b1 {
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(251,146,60,0.3), transparent 70%);
-            top: -200px; right: -100px;
-        }
-        .bg-blob.b2 {
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(185,28,28,0.2), transparent 70%);
-            top: 20%; left: -150px;
-        }
-        [data-theme="dark"] .bg-blob.b1 { background: radial-gradient(circle, rgba(248,113,113,0.15), transparent 70%); opacity: 0.6; }
-        [data-theme="dark"] .bg-blob.b2 { background: radial-gradient(circle, rgba(252,211,77,0.1), transparent 70%); opacity: 0.5; }
-
-        /* --- Navigation --- */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(250, 250, 249, 0.7);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-            border-bottom: 1px solid var(--border);
-            z-index: 100;
-            padding: 0 2rem;
-            transition: background 0.3s, border-color 0.3s;
-        }
-        [data-theme="dark"] nav { background: rgba(12, 10, 9, 0.75); }
-
-        nav .nav-inner {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 60px;
-        }
-        nav .nav-name {
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--text);
-            text-decoration: none;
-            letter-spacing: -0.01em;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        nav .nav-name::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background: var(--gradient-accent);
-            border-radius: 50%;
-            box-shadow: 0 0 12px var(--accent-glow);
-            animation: pulse 2s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.2); }
-        }
-        nav .nav-links {
-            display: flex;
-            gap: 0.25rem;
-            align-items: center;
-        }
-        nav .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            padding: 0.4rem 0.85rem;
-            border-radius: 999px;
-            transition: all 0.2s;
-        }
-        nav .nav-links a:hover {
-            color: var(--accent);
-            background: var(--accent-light);
-        }
-        .theme-toggle {
-            margin-left: 0.5rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-        .theme-toggle:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: rotate(20deg);
-        }
-        .theme-toggle svg { width: 16px; height: 16px; }
-        [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
-        [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
-        .theme-toggle .icon-sun { display: none; }
-        .theme-toggle .icon-moon { display: block; }
-
-        /* --- Hero --- */
-        .hero {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 8rem 2rem 4rem;
-            display: flex;
-            gap: 3.5rem;
-            align-items: center;
-            position: relative;
-        }
-        .hero-photo { flex-shrink: 0; position: relative; }
-        .hero-photo::before {
-            content: '';
-            position: absolute;
-            inset: -8px;
-            background: var(--gradient-accent);
-            border-radius: 50%;
-            opacity: 0.4;
-            filter: blur(20px);
-            z-index: -1;
-            animation: glow 4s ease-in-out infinite;
-        }
-        @keyframes glow {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.05); }
-        }
-        .hero-photo img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--bg-card);
-            box-shadow: var(--shadow-lg);
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .hero-photo img:hover { transform: scale(1.05); }
-
-        .hero-text { flex: 1; }
-        .hero-text .greeting {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.82rem;
-            font-weight: 500;
-            color: var(--accent);
-            background: var(--accent-light);
-            padding: 0.3rem 0.85rem;
-            border-radius: 999px;
-            margin-bottom: 1rem;
-            border: 1px solid var(--accent-glow);
-        }
-        .hero-text .greeting .wave {
-            display: inline-block;
-            animation: wave 2.5s ease-in-out infinite;
-            transform-origin: 70% 70%;
-        }
-        @keyframes wave {
-            0%, 60%, 100% { transform: rotate(0deg); }
-            10%, 30% { transform: rotate(14deg); }
-            20% { transform: rotate(-8deg); }
-            40% { transform: rotate(-4deg); }
-            50% { transform: rotate(10deg); }
-        }
-        .hero-text h1 {
-            font-family: 'Crimson Pro', Georgia, serif;
-            font-size: 3rem;
-            font-weight: 700;
-            letter-spacing: -0.025em;
-            line-height: 1.1;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--text) 0%, var(--text-secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .hero-text .subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 1.25rem;
-            font-weight: 400;
-        }
-        .hero-text .subtitle a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-        }
-        .hero-text .subtitle a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px; left: 0;
-            width: 100%; height: 1px;
-            background: var(--accent);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s;
-        }
-        .hero-text .subtitle a:hover::after { transform: scaleX(1); }
-        .hero-text .bio {
-            color: var(--text-secondary);
-            font-size: 0.94rem;
-            line-height: 1.8;
-        }
-        .hero-text .bio a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500;
-            border-bottom: 1px solid var(--border);
-            transition: all 0.2s;
-        }
-        .hero-text .bio a:hover {
-            color: var(--accent);
-            border-bottom-color: var(--accent);
-        }
-        .hero-meta {
-            display: flex;
-            gap: 0.6rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-        .hero-meta a, .hero-meta span {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            font-size: 0.82rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            padding: 0.45rem 0.95rem;
-            border-radius: 999px;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-sm);
-        }
-        .hero-meta a:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            background: var(--accent-light);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-        .hero-meta svg { width: 14px; height: 14px; }
-
-        /* --- Container --- */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 2rem 4rem;
-        }
-
-        /* --- Section --- */
-        section {
-            margin-bottom: 4rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        section h2 {
-            font-family: 'Crimson Pro', Georgia, serif;
-            font-size: 1.9rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        section h2::before {
-            content: '';
-            width: 4px;
-            height: 1.5rem;
-            background: var(--gradient-accent);
-            border-radius: 2px;
-        }
-        section h3 {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
-            font-weight: 500;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 0.85rem;
-            margin-top: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        section h3::before {
-            content: '';
-            width: 24px;
-            height: 1px;
-            background: var(--text-tertiary);
-        }
-        section h3:first-of-type { margin-top: 0; }
-
-        /* --- News card --- */
-        .news-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-left: 3px solid var(--accent);
-            padding: 1.1rem 1.35rem;
-            border-radius: var(--radius);
-            margin-bottom: 0.75rem;
-            font-size: 0.92rem;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-        .news-item::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: var(--gradient-soft);
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-        .news-item:hover {
-            transform: translateX(4px);
-            box-shadow: var(--shadow);
-        }
-        .news-item:hover::before { opacity: 1; }
-        .news-item .news-date {
-            display: inline-block;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.74rem;
-            font-weight: 500;
-            color: var(--accent);
-            background: var(--accent-light);
-            padding: 0.15rem 0.55rem;
-            border-radius: 4px;
-            margin-right: 0.6rem;
-        }
-        .news-item a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .news-item a:hover { text-decoration: underline; }
-
-        /* --- Publication card --- */
-        .pub {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.25rem 1.4rem;
-            margin-bottom: 0.85rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .pub::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0;
-            width: 3px;
-            height: 100%;
-            background: var(--gradient-accent);
-            transform: scaleY(0);
-            transform-origin: top;
-            transition: transform 0.3s;
-        }
-        .pub:hover {
-            box-shadow: var(--shadow);
-            border-color: transparent;
-            transform: translateY(-2px);
-        }
-        .pub:hover::before { transform: scaleY(1); }
-        .pub .pub-title {
-            font-weight: 600;
-            font-size: 0.97rem;
-            margin-bottom: 0.35rem;
-            color: var(--text);
-            line-height: 1.5;
-        }
-        .pub .pub-authors {
-            font-size: 0.86rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.4rem;
-        }
-        .pub .pub-venue {
-            font-size: 0.82rem;
-            color: var(--text-tertiary);
-            font-family: 'JetBrains Mono', monospace;
-        }
-        .pub .pub-venue b { color: var(--text-secondary); font-weight: 500; }
-        .pub .award-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-            background: var(--gradient-accent);
-            color: #fff;
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 0.2rem 0.6rem;
-            border-radius: 999px;
-            margin-left: 0.5rem;
-            vertical-align: middle;
-            box-shadow: 0 2px 8px var(--accent-glow);
-        }
-        .pub .award-badge::before {
-            content: '★';
-            font-size: 0.7rem;
-        }
-        .pub .pub-links { margin-top: 0.6rem; display: flex; gap: 0.4rem; flex-wrap: wrap; }
-        .pub .pub-links a {
-            font-size: 0.74rem;
-            font-weight: 500;
-            color: var(--accent);
-            text-decoration: none;
-            background: var(--accent-light);
-            border: 1px solid transparent;
-            padding: 0.2rem 0.7rem;
-            border-radius: 999px;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            font-family: 'JetBrains Mono', monospace;
-        }
-        .pub .pub-links a:hover {
-            background: var(--accent);
-            color: #fff;
-            transform: translateY(-1px);
-        }
-        .pub .pub-links a::before {
-            content: '↗';
-            font-size: 0.85rem;
-        }
-
-        /* --- Timeline --- */
-        .timeline { position: relative; padding-left: 1.75rem; }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0.5rem;
-            bottom: 0.5rem;
-            width: 2px;
-            background: linear-gradient(180deg, var(--accent) 0%, var(--border) 100%);
-        }
-        .timeline-item {
-            position: relative;
-            margin-bottom: 1.75rem;
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -1.78rem;
-            top: 0.55rem;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--bg);
-            border: 2px solid var(--accent);
-            box-shadow: 0 0 0 4px var(--bg), 0 0 12px var(--accent-glow);
-            transition: all 0.3s;
-        }
-        .timeline-item:hover::before {
-            background: var(--accent);
-            transform: scale(1.2);
-        }
-        .timeline-item .tl-period {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.74rem;
-            color: var(--accent);
-            font-weight: 500;
-            letter-spacing: 0.02em;
-            margin-bottom: 0.15rem;
-        }
-        .timeline-item .tl-title {
-            font-weight: 600;
-            font-size: 0.97rem;
-            color: var(--text);
-        }
-        .timeline-item .tl-detail {
-            font-size: 0.86rem;
-            color: var(--text-secondary);
-            margin-top: 0.2rem;
-        }
-        .timeline-item .tl-detail a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-        .timeline-item .tl-detail a:hover { text-decoration: underline; }
-
-        /* --- Awards grid --- */
-        .award-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 0.6rem;
-            list-style: none;
-        }
-        .award-grid li {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 0.7rem 1rem;
-            font-size: 0.86rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 0.6rem;
-            transition: all 0.2s;
-        }
-        .award-grid li:hover {
-            border-color: var(--accent);
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-sm);
-        }
-        .award-grid .award-icon {
-            flex-shrink: 0;
-            color: var(--accent);
-            font-size: 0.9rem;
-            margin-top: 0.1rem;
-        }
-
-        /* --- Pills --- */
-        .pill-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        .pill {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            padding: 0.5rem 1rem;
-            border-radius: 999px;
-            font-size: 0.83rem;
-            color: var(--text-secondary);
-            transition: all 0.2s;
-            cursor: default;
-        }
-        .pill:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            background: var(--accent-light);
-            transform: translateY(-1px);
-        }
-
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            padding: 2.5rem 2rem;
-            font-size: 0.78rem;
-            color: var(--text-tertiary);
-            border-top: 1px solid var(--border);
-            font-family: 'JetBrains Mono', monospace;
-        }
-        footer .heart { color: var(--accent); display: inline-block; animation: pulse 1.5s infinite; }
-
-        /* --- Scroll progress bar --- */
-        .scroll-progress {
-            position: fixed;
-            top: 0; left: 0;
-            height: 3px;
-            background: var(--gradient-accent);
-            width: 0%;
-            z-index: 200;
-            transition: width 0.1s;
-            box-shadow: 0 0 10px var(--accent-glow);
-        }
-
-        /* --- Responsive --- */
-        @media (max-width: 768px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                padding-top: 6rem;
-                gap: 2rem;
-            }
-            .hero-meta { justify-content: center; }
-            .hero-text h1 { font-size: 2.2rem; }
-            .hero-text .greeting { margin-left: auto; margin-right: auto; }
-            nav { padding: 0 1rem; }
-            nav .nav-links { gap: 0.1rem; }
-            nav .nav-links a {
-                font-size: 0.78rem;
-                padding: 0.3rem 0.5rem;
-            }
-            nav .nav-links a.hide-mobile { display: none; }
-            section h2 { font-size: 1.5rem; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-    </style>
+  <link rel="stylesheet" href="assets/css/font_sans_serif.css">
+  <link rel="stylesheet" href="assets/css/theme-luka.css">
 </head>
-<body>
-
-<div class="bg-grid"></div>
-<div class="bg-blob b1"></div>
-<div class="bg-blob b2"></div>
-<div class="scroll-progress" id="scrollProgress"></div>
-
-<nav>
-    <div class="nav-inner">
-        <a href="#" class="nav-name">Zhengxin Zhang</a>
-        <div class="nav-links">
-            <a href="#news">News</a>
-            <a href="#publications">Publications</a>
-            <a href="#education" class="hide-mobile">Education</a>
-            <a href="#awards" class="hide-mobile">Awards</a>
-            <a href="#experience" class="hide-mobile">Experience</a>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-            </button>
-        </div>
+<body class="theme-luka">
+  <nav class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="./">Home</a>
+      </div>
+      <div class="nav-right">
+        <button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
     </div>
-</nav>
+  </nav>
 
-<header class="hero">
-    <div class="hero-photo">
-        <img src="./zhengxin/zhengxin_pr.jpg" alt="Zhengxin Zhang" />
-    </div>
-    <div class="hero-text">
-        <span class="greeting"><span class="wave">👋</span> Hello, I'm</span>
-        <h1>Zhengxin Zhang</h1>
-        <p class="subtitle">
-            PhD Student in <a href="https://cis.cornell.edu/" target="_blank">Computer Science</a> at <a href="https://www.cornell.edu/" target="_blank">Cornell University</a>
-        </p>
-        <p class="bio">
-            I am a second-year CS PhD student at Cornell advised by
-            <a href="https://www.cs.cornell.edu/home/cardie/" target="_blank">Prof. Claire Cardie</a>.
-            Previously, I was a research assistant at Carnegie Mellon University supervised by
-            <a href="https://www.cs.cmu.edu/~zhihaoj2/" target="_blank">Prof. Zhihao Jia</a>.
-            I obtained my MS at Tsinghua University supervised by
-            <a href="https://www.sigs.tsinghua.edu.cn/jy/main.htm" target="_blank">Prof. Yong Jiang</a>.
-            My research interests include data stream structure and algorithms design,
-            programmable switches, machine learning, and large language models.
-            I received my BS at the <a href="https://jsjxy.xust.edu.cn/" target="_blank">CS</a> department
-            of <a href="https://www.xidian.edu.cn/" target="_blank">Xidian University</a>,
-            where I was supervised by
-            <a href="https://faculty.xidian.edu.cn/XYS1/zh_CN/index/389193/list/index.htm" target="_blank">Prof. Yuesheng Xu</a>.
-        </p>
-        <div class="hero-meta">
-            <span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                zz865@cornell.edu
-            </span>
-            <span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                Gates Hall G23, Ithaca, NY
-            </span>
-            <a href="https://scholar.google.com/citations?user=dGb05PMAAAAJ&hl=en" target="_blank">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14"><path fill="currentColor" d="M390.9 298.5c0 0 0 .1.1.1 9.2 19.4 14.4 41.1 14.4 64 0 84.1-68.1 152.3-152.1 152.3S101.1 446.6 101.1 362.6s68.1-152.3 152.1-152.3c36.8 0 70.6 13.1 96.9 34.9l-39.2 38.2c-16.2-12.4-36.5-19.8-57.7-19.8-53.1 0-96.3 43.2-96.3 96.4s43.2 96.4 96.3 96.4c42.2 0 72.5-22.4 84.5-53.4h-84.5V348h143.7c1.8 9.6 2.8 19.8 2.8 30.5z"/><path fill="currentColor" d="M256 0L0 204.4l76.8 60.1V204.4L256 68.9l179.2 135.5v60.1L512 204.4z"/></svg>
-                Google Scholar
-            </a>
-        </div>
-    </div>
-</header>
+  <div class="wrapper">
+    <header class="sidebar">
+      <div class="profile-card">
+        <a class="image avatar">
+          <img src="zhengxin/zhengxin_pr.jpg" alt="Zhengxin Zhang">
+        </a>
 
-<main class="container">
+        <h1 class="site-name">Zhengxin Zhang</h1>
+        <p class="site-email">zz865@cornell.edu</p>
 
-    <section id="news">
-        <h2>News</h2>
-        <div class="news-item">
-            <span class="news-date">Apr 2026</span>
-            Released <em>Research Arena</em> — an evaluation of CLI-based AI agents (Claude Code, Codex, Kimi Code) on end-to-end scientific research across 13 CS domains, using dual review from Stanford Agentic Reviewer and peer review.
-            <a href="https://youarespecialtome.github.io/ResearchArena/index.html" target="_blank">Read the analysis →</a>
+        <div class="social-icons">
+          <a href="mailto:zz865@cornell.edu" title="Email"><i class="fa-solid fa-envelope"></i></a>
+          <a href="https://scholar.google.com/citations?user=dGb05PMAAAAJ&hl=en" title="Google Scholar" target="_blank"><i class="ai ai-google-scholar"></i></a>
+          <a href="https://github.com/YouAreSpecialToMe" title="GitHub" target="_blank"><i class="fa-brands fa-github"></i></a>
+          <a href="https://github.com/YouAreSpecialToMe/Resume-Zhengxin-Zhang" title="CV" target="_blank"><i class="fa-solid fa-file-lines"></i></a>
         </div>
-        <div class="news-item">
-            <span class="news-date">Apr 2026</span>
-            Two papers accepted to <b>ACL 2026 Findings</b>: <em>Better LLM Reasoning via Dual-play</em> and <em>GSM-Noise: Exploring and Enhancing Large Language Models' Reasoning under Noisy Inputs</em>. See you in San Diego!
+      </div>
+    </header>
+
+    <section class="content">
+      <div class="section" id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="section-body">
+          <p>I am a second-year CS PhD student at <a href="https://cis.cornell.edu/" target="_blank">Cornell University</a>, advised by <a href="https://www.cs.cornell.edu/home/cardie/" target="_blank">Prof. Claire Cardie</a>. Previously, I was a research assistant at Carnegie Mellon University supervised by <a href="https://www.cs.cmu.edu/~zhihaoj2/" target="_blank">Prof. Zhihao Jia</a>. I obtained my MS at Tsinghua University supervised by <a href="https://www.sigs.tsinghua.edu.cn/jy/main.htm" target="_blank">Prof. Yong Jiang</a>, and my BS at the <a href="https://jsjxy.xust.edu.cn/" target="_blank">CS</a> department of <a href="https://www.xidian.edu.cn/" target="_blank">Xidian University</a>, where I was supervised by <a href="https://faculty.xidian.edu.cn/XYS1/zh_CN/index/389193/list/index.htm" target="_blank">Prof. Yuesheng Xu</a>.</p>
+          <p>My research interests include data stream structure and algorithm design, programmable switches, machine learning, and large language models.</p>
+          <p>📍 Bill and Melinda Gates Hall, G23 · Campus Rd, Ithaca, NY 14853</p>
         </div>
-        <div class="news-item">
-            <span class="news-date">Nov 2025</span>
-            We released <em>Better LLM Reasoning via Dual-play</em>, a novel framework that trains two nearly identical models adversarially, enabling them to co-evolve through iterative competition without any external supervision.
-            <a href="https://glossy-kettledrum-44a.notion.site/Enhancing-LLM-Reasoning-via-GAN-Style-Training-Without-Supervision-2ae0a05c3a9480219332e019f21979c9" target="_blank">Read the blog post →</a>
+      </div>
+
+      <div class="section" id="news">
+        <h2 class="section-title">News</h2>
+        <div class="section-body">
+          <p><strong style="color: var(--luka-accent);">[Apr 2026]</strong> Released <em>Research Arena</em> — an evaluation of CLI-based AI agents (Claude Code, Codex, Kimi Code) on end-to-end scientific research across 13 CS domains. <a href="https://youarespecialtome.github.io/ResearchArena/index.html" target="_blank">Read the analysis →</a></p>
+          <p><strong style="color: var(--luka-accent);">[Apr 2026]</strong> Two papers accepted to <strong>ACL 2026 Findings</strong>: <em>Better LLM Reasoning via Dual-play</em> and <em>GSM-Noise: Exploring and Enhancing Large Language Models' Reasoning under Noisy Inputs</em>. See you in San Diego!</p>
+          <p><strong style="color: var(--luka-accent);">[Nov 2025]</strong> We released <em>Better LLM Reasoning via Dual-play</em>, a framework that trains two nearly identical models adversarially, enabling them to co-evolve through iterative competition without external supervision. <a href="https://glossy-kettledrum-44a.notion.site/Enhancing-LLM-Reasoning-via-GAN-Style-Training-Without-Supervision-2ae0a05c3a9480219332e019f21979c9" target="_blank">Read the blog post →</a></p>
         </div>
+      </div>
+
+      <div class="section" id="publications">
+        <h2 class="section-title">Publications</h2>
+        <div class="section-body">
+          <div class="publications">
+
+            <h3 style="font-size:14px; color: var(--luka-secondary); text-transform: uppercase; letter-spacing: 0.08em; margin: 8px 0 12px;">Preprints</h3>
+            <ol class="bibliography">
+              <li>
+                <div class="pub-row"><div class="pub-content">
+                  <div class="title">Towards More Robust Retrieval-Augmented Generation: Evaluating RAG Under Adversarial Poisoning Attacks</div>
+                  <div class="author">Jinyan Su, Jin Peng Zhou, <strong>Zhengxin Zhang</strong>, Preslav Nakov, Claire Cardie</div>
+                  <div class="links"><a href="https://arxiv.org/abs/2412.16708" target="_blank">arXiv</a></div>
+                </div></div>
+              </li>
+              <li>
+                <div class="pub-row"><div class="pub-content">
+                  <div class="title">Graph-based Multi-Task Learning Framework for Model Generalization across Network Topologies</div>
+                  <div class="author">Jingyu Xiao, Qing Li, <strong>Zhengxin Zhang</strong>, Dan Zhao, Yong Jiang</div>
+                </div></div>
+              </li>
+            </ol>
+
+            <h3 style="font-size:14px; color: var(--luka-secondary); text-transform: uppercase; letter-spacing: 0.08em; margin: 24px 0 12px;">2026</h3>
+            <ol class="bibliography">
+              <li>
+                <div class="pub-row"><div class="pub-content">
+                  <div class="title">Better LLM Reasoning via Dual-play</div>
+                  <div class="author"><strong>Zhengxin Zhang</strong>*, Chengyu Huang*, Aochong Oliver Li, Claire Cardie</div>
+                  <div class="periodical"><em><strong>Findings of ACL</strong></em>, 2026</div>
+                  <div class="links"><a href="https://arxiv.org/abs/2511.11881" target="_blank">arXiv</a> / <a href="https://glossy-kettledrum-44a.notion.site/Enhancing-LLM-Reasoning-via-GAN-Style-Training-Without-Supervision-2ae0a05c3a9480219332e019f21979c9" target="_blank">Blog</a> / <a href="https://github.com/HCY123902/PasoDoble" target="_blank">Code</a></div>
+                </div></div>
+              </li>
+              <li>
+                <div class="pub-row"><div class="pub-content">
+                  <div class="title">GSM-Noise: Exploring and Enhancing Large Language Models' Reasoning under Noisy Inputs</div>
+                  <div class="author"><strong>Zhengxin Zhang</strong>*, Chengyu Huang*, Xufu Liu, Dan Zhao, Jinyan Su, Claire Cardie</div>
+                  <div class="periodical"><em><strong>Findings of ACL</strong></em>, 2026</div>
+                  <div class="links"><a href="https://openreview.net/forum?id=SZiTLYgJNN" target="_blank">OpenReview</a></div>
+                </div></div>
+              </li>
+              <li>
+                <div class="pub-row"><div class="pub-content">
+                  <div class="title">HumanGuideNet: Adapter-Based Alignment of Deep Neural Networks with Human Similarity Judgments</div>
+                  <div class="author">Xufu Liu, Yifan Yang, <strong>Zhengxin Zhang</strong></div>
+                  <div class="periodical"><em><strong>WACV</strong></em>, Mar 2026</div>
+                </div></div>
+              </li>
+              <li>
+                <div class="pub-row"><div class="pub-content">
+                  <div class="title">HAPO: Training Language Models to Reason Concisely via History-Aware Policy Optimization</div>
+                  <div class="author">Chengyu Huang*, <strong>Zhengxin Zhang</strong>*, Claire Cardie</div>
+                  <div class="periodical"><em><strong>AAAI</strong></em>, Jan 2026</div>
+                  <div class="links"><a href="https://arxiv.org/abs/2505.11225" target="_blank">arXiv</a></div>
+                </div></div>
+              </li>
+            </ol>
+
+            <h3 style="font-size:14px; color: var(--luka-secondary); text-transform: uppercase; letter-spacing: 0.08em; margin: 24px 0 12px;">2025</h3>
+            <ol class="bibliography">
+              <li>
+                <div class="pub-row"><div class="pub-content">
+                  <div class="title">Learning-Enhanced High-Throughput Pattern Matching Based on Programmable Data Plane</div>
+                  <div class="author">Guanglin Duan*, Yucheng Huang*, <strong>Zhengxin Zhang</strong>*, Qing Li, Dan Zhao, Yong Jiang</div>
+                  <div class="periodical"><em><strong>USENIX ATC</strong></em>, July 2025</div>
+                  <div class="links"><a href="https://www.usenix.org/conference/atc25/presentation/duan-guanglin" target="_blank">USENIX</a></div>
+                </div></div>
+              </li>
+            </ol>
+
+            <h3 style="font-size:14px; color: var(--luka-secondary); text-transform: uppercase; letter-spacing: 0.08em; margin: 24px 0 12px;">2024</h3>
+            <ol class="bibliography">
+              <li>
+                <div class="pub-row"><div class="pub-content">
+                  <div class="title">Quantized Side Tuning: Fast and Efficient Tuning of Quantized Large Language Models <span style="background: var(--luka-accent); color: #fff; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; margin-left: 4px;">★ Outstanding Paper</span></div>
+                  <div class="author"><strong>Zhengxin Zhang</strong>, Dan Zhao, Xupeng Miao, Gabriele Oliaro, Qing Li, Yong Jiang, Zhihao Jia</div>
+                  <div class="periodical"><em><strong>ACL</strong></em>, Aug 2024 · Oral presentation</div>
+                  <div class="links"><a href="https://arxiv.org/abs/2401.07159" target="_blank">arXiv</a></div>
+                </div></div>
+              </li>
+              <li>
+                <div class="pub-row"><div class="pub-content">
+                  <div class="title">SpecInfer: Accelerating Large Language Model Serving with Tree-Based Speculative Inference and Verification</div>
+                  <div class="author">Xupeng Miao, Gabriele Oliaro, Zhihao Zhang, Xinhao Cheng, Zeyu Wang, <strong>Zhengxin Zhang</strong>, Rae Ying Yee Wong, Alan Zhu, Lijie Yang, Xiaoxiang Shi, Chunan Shi, Zhuoming Chen, Daiyaan Arfeen, Reyna Abhyankar, Zhihao Jia</div>
+                  <div class="periodical"><em><strong>ASPLOS</strong></em>, July 2024</div>
+                  <div class="links"><a href="https://arxiv.org/abs/2305.09781" target="_blank">arXiv</a></div>
+                </div></div>
+              </li>
+              <li>
+                <div class="pub-row"><div class="pub-content">
+                  <div class="title">DNSGuard: In-network Defense against DNS Attacks</div>
+                  <div class="author">Guanglin Duan, Qing Li, <strong>Zhengxin Zhang</strong>, Dan Zhao, Guorui Xie, Yong Jiang</div>
+                  <div class="periodical"><em><strong>IEEE TDSC</strong></em>, July 2024</div>
+                  <div class="links"><a href="https://ieeexplore.ieee.org/abstract/document/10550176/" target="_blank">IEEE</a></div>
+                </div></div>
+              </li>
+              <li>
+                <div class="pub-row"><div class="pub-content">
+                  <div class="title">SeIoT: Smart Home Network Anomaly Detection via Knowledge Graph</div>
+                  <div class="author">Qing Li, Ruoyu Li, Yucheng Huang, Qingsong Zou, Dan Zhao, <strong>Zhengxin Zhang</strong>, Yong Jiang</div>
+                  <div class="periodical"><em><strong>IEEE TIFS</strong></em>, July 2024</div>
+                  <div class="links"><a href="https://ieeexplore.ieee.org/document/10599285/" target="_blank">IEEE</a></div>
+                </div></div>
+              </li>
+            </ol>
+
+            <h3 style="font-size:14px; color: var(--luka-secondary); text-transform: uppercase; letter-spacing: 0.08em; margin: 24px 0 12px;">2023</h3>
+            <ol class="bibliography">
+              <li>
+                <div class="pub-row"><div class="pub-content">
+                  <div class="title">Metis: Understanding and Enhancing Regular Expressions in Network</div>
+                  <div class="author"><strong>Zhengxin Zhang</strong>*, Yucheng Huang*, Guanglin Duan*, Qing Li, Dan Zhao, Yong Jiang, Lianbo Ma, Xiao Xi, Hengyang Xu</div>
+                  <div class="periodical"><em><strong>NeurIPS</strong></em>, Dec 2023</div>
+                  <div class="links"><a href="https://openreview.net/forum?id=Pplq1TRnma" target="_blank">OpenReview</a></div>
+                </div></div>
+              </li>
+              <li>
+                <div class="pub-row"><div class="pub-content">
+                  <div class="title">Pontus: Finding Waves in Data Streams</div>
+                  <div class="author"><strong>Zhengxin Zhang</strong>, Qing Li, Guanglin Duan, Dan Zhao, Jingyu Xiao, Guorui Xie, Yong Jiang</div>
+                  <div class="periodical"><em><strong>SIGMOD</strong></em>, June 2023</div>
+                  <div class="links"><a href="https://dl.acm.org/doi/10.1145/3588960" target="_blank">ACM</a></div>
+                </div></div>
+              </li>
+            </ol>
+
+            <p style="font-size: 12px; color: var(--luka-secondary); margin-top: 14px;">* denotes equal contribution</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="education">
+        <h2 class="section-title">Education</h2>
+        <div class="section-body">
+          <div class="card timeline-item">
+            <div class="experience-item">
+              <div class="experience-content">
+                <p class="exp-title"><strong>Cornell University</strong></p>
+                <p class="exp-detail">Ph.D. in Computer Science · Advisor: Prof. Claire Cardie</p>
+                <p class="exp-period">2024 — Present</p>
+              </div>
+            </div>
+          </div>
+          <div class="card timeline-item">
+            <div class="experience-item">
+              <div class="experience-content">
+                <p class="exp-title"><strong>Carnegie Mellon University</strong></p>
+                <p class="exp-detail">Visiting Scholar · Advisor: Prof. Zhihao Jia</p>
+                <p class="exp-period">2023 — 2024</p>
+              </div>
+            </div>
+          </div>
+          <div class="card timeline-item">
+            <div class="experience-item">
+              <div class="experience-content">
+                <p class="exp-title"><strong>Tsinghua University</strong></p>
+                <p class="exp-detail">M.S. in Computer Science and Engineering · GPA 3.88/4.0</p>
+                <p class="exp-period">2021 — 2024</p>
+              </div>
+            </div>
+          </div>
+          <div class="card timeline-item">
+            <div class="experience-item">
+              <div class="experience-content">
+                <p class="exp-title"><strong>Xidian University</strong></p>
+                <p class="exp-detail">B.S. in Software Engineering · GPA 3.86/4.0 · Rank 2/110</p>
+                <p class="exp-period">2017 — 2021</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="experience">
+        <h2 class="section-title">Experience</h2>
+        <div class="section-body">
+          <div class="card timeline-item">
+            <div class="experience-item">
+              <div class="experience-content">
+                <p class="exp-title"><strong>Carnegie Mellon University</strong></p>
+                <p class="exp-detail">Research Assistant · Advisor: Prof. Zhihao Jia</p>
+                <p class="exp-detail">Machine learning systems and large language models</p>
+                <p class="exp-period">Jun 2023 — Aug 2024</p>
+              </div>
+            </div>
+          </div>
+          <div class="card timeline-item">
+            <div class="experience-item">
+              <div class="experience-content">
+                <p class="exp-title"><strong>Tencent, Shenzhen</strong></p>
+                <p class="exp-detail">Research Scientist Intern</p>
+                <p class="exp-detail">XDP and eBPF algorithm design</p>
+                <p class="exp-period">Sep 2022 — Aug 2023</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="awards">
+        <h2 class="section-title">Awards</h2>
+        <div class="section-body">
+          <div class="awards-grid">
+            <div class="award-item"><span class="award-icon">🏆</span><div class="award-text"><strong>ACL Outstanding Paper Award</strong>, 2024</div></div>
+            <div class="award-item"><span class="award-icon">🎓</span><div class="award-text"><strong>Outstanding Master Dissertation Award</strong>, Tsinghua University, 2024</div></div>
+            <div class="award-item"><span class="award-icon">🥇</span><div class="award-text"><strong>First Prize Scholarship</strong>, Tsinghua University, 2022 & 2023</div></div>
+            <div class="award-item"><span class="award-icon">🥈</span><div class="award-text"><strong>Second Place</strong>, Intel® P4 China Hackathon, 2022</div></div>
+            <div class="award-item"><span class="award-icon">🏅</span><div class="award-text"><strong>Outstanding Graduates</strong>, Ministry of Education of Shaanxi Province</div></div>
+            <div class="award-item"><span class="award-icon">🎖️</span><div class="award-text"><strong>Outstanding Student</strong>, Xidian University, 2018–2020</div></div>
+            <div class="award-item"><span class="award-icon">🇨🇳</span><div class="award-text"><strong>National Scholarship</strong>, Ministry of Education of China, 2020</div></div>
+            <div class="award-item"><span class="award-icon">🏅</span><div class="award-text"><strong>First Prize Scholarship</strong>, Xidian University, 2018 & 2019</div></div>
+            <div class="award-item"><span class="award-icon">📐</span><div class="award-text"><strong>First Prize</strong> (top 0.036‰), China Undergraduate Mathematical Contest in Modeling, 2019</div></div>
+            <div class="award-item"><span class="award-icon">📐</span><div class="award-text"><strong>First Prize</strong>, Xidian University Mathematical Modeling Contest, 2019</div></div>
+            <div class="award-item"><span class="award-icon">🌐</span><div class="award-text"><strong>Meritorious Winner</strong>, International Mathematical Contest in Modeling, 2018</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="talks">
+        <h2 class="section-title">Talks</h2>
+        <div class="section-body">
+          <p>• <strong>Cornell NLP Seminar</strong>: Quantized Side Tuning: Fast and Efficient Tuning of Quantized Large Language Models. Sep 2024.</p>
+          <p>• <strong>Tencent</strong>: Regular Expressions in the Data Plane. Dec 2023.</p>
+        </div>
+      </div>
+
+      <div class="section" id="services">
+        <h2 class="section-title">Academic Service</h2>
+        <div class="section-body">
+          <p>• ICLR Reviewer 2025</p>
+          <p>• AAAI Programme Committee 2025</p>
+          <p>• NeurIPS Reviewer 2024, 2025</p>
+          <p>• COLM Reviewer 2025</p>
+        </div>
+      </div>
     </section>
 
-    <section id="publications">
-        <h2>Publications</h2>
+    <footer class="site-footer">
+      <p>
+        &copy; 2026 Zhengxin Zhang. All rights reserved.
+        <br>
+        <span class="template-credit"><a href="https://github.com/wzsyyh/luka-homepage-template">Luka Homepage Template</a> by <a href="https://wzsyyh.github.io/">Yuheng Yang</a></span>
+      </p>
+    </footer>
+  </div>
 
-        <h3>Preprints</h3>
+  <script src="assets/js/scale.fix.js"></script>
+  <script>
+    (function() {
+      const themeToggle = document.getElementById('themeToggle');
+      const icon = themeToggle.querySelector('i');
 
-        <div class="pub">
-            <div class="pub-title">Towards More Robust Retrieval-Augmented Generation: Evaluating RAG Under Adversarial Poisoning Attacks</div>
-            <div class="pub-authors">Jinyan Su, Jin Peng Zhou, <b>Zhengxin Zhang</b>, Preslav Nakov, Claire Cardie</div>
-            <div class="pub-links"><a href="https://arxiv.org/abs/2412.16708" target="_blank">arXiv</a></div>
-        </div>
+      function setTheme(isDark) {
+        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        icon.classList.toggle('fa-sun', isDark);
+        icon.classList.toggle('fa-moon', !isDark);
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      }
 
-        <div class="pub">
-            <div class="pub-title">Graph-based Multi-Task Learning Framework for Model Generalization across Network Topologies</div>
-            <div class="pub-authors">Jingyu Xiao, Qing Li, <b>Zhengxin Zhang</b>, Dan Zhao, and Yong Jiang</div>
-        </div>
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(savedTheme ? savedTheme === 'dark' : prefersDark);
 
-        <h3>2026</h3>
+      themeToggle.addEventListener('click', function() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        setTheme(!isDark);
+      });
 
-        <div class="pub">
-            <div class="pub-title">Better LLM Reasoning via Dual-play</div>
-            <div class="pub-authors"><b>Zhengxin Zhang</b>*, Chengyu Huang*, Aochong Oliver Li, Claire Cardie</div>
-            <div class="pub-venue">Findings of the Association for Computational Linguistics (<b>ACL</b>), 2026</div>
-            <div class="pub-links"><a href="https://arxiv.org/abs/2511.11881" target="_blank">arXiv</a></div>
-        </div>
-
-        <div class="pub">
-            <div class="pub-title">GSM-Noise: Exploring and Enhancing Large Language Models' Reasoning under Noisy Inputs</div>
-            <div class="pub-authors"><b>Zhengxin Zhang</b>*, Chengyu Huang*, Xufu Liu, Dan Zhao, Jinyan Su, Claire Cardie</div>
-            <div class="pub-venue">Findings of the Association for Computational Linguistics (<b>ACL</b>), 2026</div>
-            <div class="pub-links"><a href="https://openreview.net/forum?id=SZiTLYgJNN" target="_blank">OpenReview</a></div>
-        </div>
-
-        <div class="pub">
-            <div class="pub-title">HumanGuideNet: Adapter-Based Alignment of Deep Neural Networks with Human Similarity Judgments</div>
-            <div class="pub-authors">Xufu Liu, Yifan Yang, <b>Zhengxin Zhang</b></div>
-            <div class="pub-venue">The IEEE/CVF Winter Conference on Applications of Computer Vision (<b>WACV</b>), Mar 2026</div>
-        </div>
-
-        <div class="pub">
-            <div class="pub-title">HAPO: Training Language Models to Reason Concisely via History-Aware Policy Optimization</div>
-            <div class="pub-authors">Chengyu Huang*, <b>Zhengxin Zhang</b>*, Claire Cardie</div>
-            <div class="pub-venue">The 40th Annual AAAI Conference on Artificial Intelligence (<b>AAAI</b>), Jan 2026</div>
-            <div class="pub-links"><a href="https://arxiv.org/abs/2505.11225" target="_blank">arXiv</a></div>
-        </div>
-
-        <h3>2025</h3>
-
-        <div class="pub">
-            <div class="pub-title">Learning-Enhanced High-Throughput Pattern Matching Based on Programmable Data Plane</div>
-            <div class="pub-authors">Guanglin Duan*, Yucheng Huang*, <b>Zhengxin Zhang</b>*, Qing Li, Dan Zhao, and Yong Jiang</div>
-            <div class="pub-venue">The 2025 USENIX Annual Technical Conference (<b>ATC</b>), July 2025</div>
-            <div class="pub-links"><a href="https://www.usenix.org/conference/atc25/presentation/duan-guanglin" target="_blank">USENIX</a></div>
-        </div>
-
-        <h3>2024</h3>
-
-        <div class="pub">
-            <div class="pub-title">
-                Quantized Side Tuning: Fast and Efficient Tuning of Quantized Large Language Models
-                <span class="award-badge">Outstanding Paper</span>
-            </div>
-            <div class="pub-authors"><b>Zhengxin Zhang</b>, Dan Zhao, Xupeng Miao, Gabriele Oliaro, Qing Li, Yong Jiang, and Zhihao Jia</div>
-            <div class="pub-venue">The 62nd Annual Meeting of the Association for Computational Linguistics (<b>ACL</b>), August 2024. Oral presentation.</div>
-            <div class="pub-links"><a href="https://arxiv.org/abs/2401.07159" target="_blank">arXiv</a></div>
-        </div>
-
-        <div class="pub">
-            <div class="pub-title">Specinfer: Accelerating Large Language Model Serving with Tree-Based Speculative Inference and Verification</div>
-            <div class="pub-authors">Xupeng Miao, Gabriele Oliaro, Zhihao Zhang, Xinhao Cheng, Zeyu Wang, <b>Zhengxin Zhang</b>, Rae Ying Yee Wong, Alan Zhu, Lijie Yang, Xiaoxiang Shi, Chunan Shi, Zhuoming Chen, Daiyaan Arfeen, Reyna Abhyankar, Zhihao Jia</div>
-            <div class="pub-venue">Proceedings of the 29th ACM International Conference on Architectural Support for Programming Languages and Operating Systems (<b>ASPLOS</b>), July 2024</div>
-            <div class="pub-links"><a href="https://arxiv.org/abs/2305.09781" target="_blank">arXiv</a></div>
-        </div>
-
-        <div class="pub">
-            <div class="pub-title">DNSGuard: In-network Defense against DNS Attacks</div>
-            <div class="pub-authors">Guanglin Duan, Qing Li, <b>Zhengxin Zhang</b>, Dan Zhao, Guorui Xie, and Yong Jiang</div>
-            <div class="pub-venue">IEEE Transactions on Dependable and Secure Computing (<b>TDSC</b>), July 2024</div>
-            <div class="pub-links"><a href="https://ieeexplore.ieee.org/abstract/document/10550176/" target="_blank">IEEE</a></div>
-        </div>
-
-        <div class="pub">
-            <div class="pub-title">SeIoT: Smart Home Network Anomaly Detection via Knowledge Graph</div>
-            <div class="pub-authors">Qing Li, Ruoyu Li, Yucheng Huang, Qingsong Zou, Dan Zhao, <b>Zhengxin Zhang</b>, and Yong Jiang</div>
-            <div class="pub-venue">IEEE Transactions on Information Forensics and Security (<b>TIFS</b>), July 2024</div>
-            <div class="pub-links"><a href="https://ieeexplore.ieee.org/document/10599285/" target="_blank">IEEE</a></div>
-        </div>
-
-        <h3>2023</h3>
-
-        <div class="pub">
-            <div class="pub-title">Metis: Understanding and Enhancing Regular Expressions in Network</div>
-            <div class="pub-authors"><b>Zhengxin Zhang</b>*, Yucheng Huang*, Guanglin Duan*, Qing Li, Dan Zhao, Yong Jiang, Lianbo Ma, Xiao Xi, and Hengyang Xu</div>
-            <div class="pub-venue">Neural Information Processing Systems (<b>NeurIPS</b>), December 2023</div>
-            <div class="pub-links"><a href="https://openreview.net/forum?id=Pplq1TRnma" target="_blank">OpenReview</a></div>
-        </div>
-
-        <div class="pub">
-            <div class="pub-title">Pontus: Finding Waves in Data Streams</div>
-            <div class="pub-authors"><b>Zhengxin Zhang</b>, Qing Li, Guanglin Duan, Dan Zhao, Jingyu Xiao, Guorui Xie, and Yong Jiang</div>
-            <div class="pub-venue">ACM SIGMOD International Conference on Management of Data (<b>SIGMOD</b>), June 2023</div>
-            <div class="pub-links"><a href="https://dl.acm.org/doi/10.1145/3588960" target="_blank">ACM</a></div>
-        </div>
-
-        <p style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: 1rem; font-family: 'JetBrains Mono', monospace;">* denotes equal contribution</p>
-    </section>
-
-    <section id="education">
-        <h2>Education</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="tl-period">2024 — Present</div>
-                <div class="tl-title">Ph.D. in Computer Science, Cornell University</div>
-            </div>
-            <div class="timeline-item">
-                <div class="tl-period">2023 — 2024</div>
-                <div class="tl-title">Visiting Scholar in Computer Science, Carnegie Mellon University</div>
-            </div>
-            <div class="timeline-item">
-                <div class="tl-period">2021 — 2024</div>
-                <div class="tl-title">M.S. in Computer Science and Engineering, Tsinghua University</div>
-                <div class="tl-detail">GPA 3.88 / 4.0</div>
-            </div>
-            <div class="timeline-item">
-                <div class="tl-period">2017 — 2021</div>
-                <div class="tl-title">B.S. in Software Engineering, Xidian University</div>
-                <div class="tl-detail">GPA 3.86 / 4.0 · Rank 2 / 110</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="awards">
-        <h2>Awards</h2>
-        <ul class="award-grid">
-            <li><span class="award-icon">★</span><span>ACL Outstanding Paper Award, 2024</span></li>
-            <li><span class="award-icon">★</span><span>Outstanding Master Dissertation, Tsinghua, 2024</span></li>
-            <li><span class="award-icon">★</span><span>First Prize Scholarship, Tsinghua, 2022 & 2023</span></li>
-            <li><span class="award-icon">★</span><span>Second Place, Intel® P4 China Hackathon, 2022</span></li>
-            <li><span class="award-icon">★</span><span>Outstanding Graduates, Shaanxi Province</span></li>
-            <li><span class="award-icon">★</span><span>Outstanding Student, Xidian, 2018–2020</span></li>
-            <li><span class="award-icon">★</span><span>National Scholarship of China, 2020</span></li>
-            <li><span class="award-icon">★</span><span>First Prize Scholarship, Xidian, 2018 & 2019</span></li>
-            <li><span class="award-icon">★</span><span>First Prize (top 0.036‰), CUMCM, 2019</span></li>
-            <li><span class="award-icon">★</span><span>First Prize, Xidian Math Modeling, 2019</span></li>
-            <li><span class="award-icon">★</span><span>Meritorious Winner, ICM, 2018</span></li>
-        </ul>
-    </section>
-
-    <section id="experience">
-        <h2>Experience</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="tl-period">Jun 2023 — Aug 2024</div>
-                <div class="tl-title">Research Assistant, Carnegie Mellon University</div>
-                <div class="tl-detail">Supervised by <a href="https://www.cs.cmu.edu/~zhihaoj2/" target="_blank">Prof. Zhihao Jia</a> · Machine learning and large language models</div>
-            </div>
-            <div class="timeline-item">
-                <div class="tl-period">Sep 2022 — Aug 2023</div>
-                <div class="tl-title">Research Intern, Tencent, Shenzhen</div>
-                <div class="tl-detail">XDP and eBPF algorithm design</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="talks">
-        <h2>Talks</h2>
-        <div class="pill-list">
-            <div class="pill">Cornell NLP Seminar · Quantized Side Tuning · Sep 2024</div>
-            <div class="pill">Tencent · Regular Expressions in the Data Plane · Dec 2023</div>
-        </div>
-    </section>
-
-    <section id="services">
-        <h2>Academic Service</h2>
-        <div class="pill-list">
-            <div class="pill">ICLR Reviewer 2025</div>
-            <div class="pill">AAAI Programme Committee 2025</div>
-            <div class="pill">NeurIPS Reviewer 2024, 2025</div>
-            <div class="pill">COLM Reviewer 2025</div>
-        </div>
-    </section>
-
-</main>
-
-<footer>
-    Built with <span class="heart">♥</span> · © 2026 Zhengxin Zhang
-</footer>
-
-<script>
-    // Theme toggle with persistence
-    const themeToggle = document.getElementById('themeToggle');
-    const savedTheme = localStorage.getItem('theme') ||
-        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    themeToggle.addEventListener('click', () => {
-        const current = document.documentElement.getAttribute('data-theme');
-        const next = current === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', next);
-        localStorage.setItem('theme', next);
-    });
-
-    // Scroll progress bar
-    const progress = document.getElementById('scrollProgress');
-    window.addEventListener('scroll', () => {
-        const scrolled = window.scrollY;
-        const total = document.documentElement.scrollHeight - window.innerHeight;
-        progress.style.width = (scrolled / total * 100) + '%';
-    });
-
-    // Fade-in sections on scroll
-    const sections = document.querySelectorAll('section');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
             }
-        });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-    sections.forEach(s => observer.observe(s));
-</script>
+          });
+        }, { threshold: 0.1 });
 
+        document.querySelectorAll('.section').forEach(function(el) {
+          observer.observe(el);
+        });
+      } else {
+        document.querySelectorAll('.section').forEach(function(el) {
+          el.classList.add('visible');
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
