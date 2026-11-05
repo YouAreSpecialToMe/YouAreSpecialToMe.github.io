@@ -277,6 +277,21 @@ body.theme-luka .section-body p {
   margin: 0 0 14px;
 }
 
+body.theme-luka .news-toggle {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--luka-accent);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+body.theme-luka .news-toggle:hover {
+  text-decoration: underline;
+}
+
 body.theme-luka .card {
   background: transparent;
   padding: 0;
